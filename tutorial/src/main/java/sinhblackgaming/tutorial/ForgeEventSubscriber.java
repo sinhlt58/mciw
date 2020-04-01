@@ -13,14 +13,22 @@ import net.minecraftforge.event.entity.living.LivingEvent;
 import net.minecraftforge.event.world.BlockEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.event.server.FMLServerStartingEvent;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import sinhblackgaming.tutorial.commands.ModCommands;
 
 @Mod.EventBusSubscriber(modid = TutorialMod.MODID, bus = Mod.EventBusSubscriber.Bus.FORGE)
-public class UpdateEventSubscriber {
+public class ForgeEventSubscriber {
 
     public static final Logger LOGGER = LogManager.getLogger();
     public static int silverFishSpawnedCount = 0;
+
+    @SubscribeEvent
+    public static void onServerStarting(final FMLServerStartingEvent event) {
+        LOGGER.info("register mod commands");
+        ModCommands.register(event.getCommandDispatcher());
+    }
 
     @SubscribeEvent
     public static void onPlayerTick(TickEvent.PlayerTickEvent event) {
