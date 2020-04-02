@@ -6,6 +6,7 @@ import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import sinhblackgaming.mciw.modes.ModesManager;
 
 @Mod(MCIWMod.MODID)
 public class MCIWMod {
@@ -19,7 +20,7 @@ public class MCIWMod {
     }
 
     private void setup(final FMLCommonSetupEvent event) {
-        LOGGER.info("Hi from setup method");
-
+        // init used modes
+        ModesManager.initUsedModes();
     }
 }
