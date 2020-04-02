@@ -15,7 +15,7 @@ apply plugin: 'maven-publish'
 
 version = '1.15.2-1.0.0'
 group = 'sinhblackgaming' // http://maven.apache.org/guides/mini/guide-naming-conventions.html
-archivesBaseName = 'tutorialmod'
+archivesBaseName = 'mciw'
 
 sourceCompatibility = targetCompatibility = compileJava.sourceCompatibility = compileJava.targetCompatibility = '1.8' // Need this here so eclipse task generates correctly.
 
@@ -74,7 +74,7 @@ minecraft {
             // Recommended logging level for the console
             property 'forge.logging.console.level', 'debug'
 
-            args '--mod', 'examplemod', '--all', '--output', file('src/generated/resources/')
+            args '--mod', 'mciw', '--all', '--output', file('src/generated/resources/')
 
             mods {
                 examplemod {

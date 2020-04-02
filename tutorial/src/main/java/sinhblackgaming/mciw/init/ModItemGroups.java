@@ -1,15 +1,14 @@
-package sinhblackgaming.tutorial.init;
+package sinhblackgaming.mciw.init;
 
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
-import sinhblackgaming.tutorial.TutorialMod;
+import sinhblackgaming.mciw.MCIWMod;
 
 import java.util.function.Supplier;
 
 public class ModItemGroups {
     public static final ItemGroup MOD_ITEM_GROUP = new ModItemGroup(
-            TutorialMod.MODID, () -> new ItemStack(ModItems.EXAMPLE_ITEM)
+            MCIWMod.MODID, () -> new ItemStack(ModItems.EXAMPLE_ITEM)
     );
 
     public static class ModItemGroup extends ItemGroup {

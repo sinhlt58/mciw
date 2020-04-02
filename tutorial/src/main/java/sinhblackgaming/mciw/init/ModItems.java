@@ -1,10 +1,10 @@
-package sinhblackgaming.tutorial.init;
+package sinhblackgaming.mciw.init;
 
 import net.minecraft.item.Item;
 import net.minecraftforge.registries.ObjectHolder;
-import sinhblackgaming.tutorial.TutorialMod;
+import sinhblackgaming.mciw.MCIWMod;
 
-@ObjectHolder(TutorialMod.MODID)
+@ObjectHolder(MCIWMod.MODID)
 public class ModItems {
     public static final Item EXAMPLE_ITEM = null;
 }

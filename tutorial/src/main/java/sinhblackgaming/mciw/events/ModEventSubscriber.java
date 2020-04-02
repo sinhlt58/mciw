@@ -1,18 +1,17 @@
-package sinhblackgaming.tutorial;
+package sinhblackgaming.mciw.events;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.item.Item;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.event.RegistryEvent;
-import net.minecraftforge.event.TickEvent;
-import net.minecraftforge.event.entity.living.LivingEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.registries.IForgeRegistryEntry;
-import sinhblackgaming.tutorial.init.ModItemGroups;
+import sinhblackgaming.mciw.MCIWMod;
+import sinhblackgaming.mciw.init.ModItemGroups;
 
-@Mod.EventBusSubscriber(modid = TutorialMod.MODID, bus = Mod.EventBusSubscriber.Bus.MOD)
+@Mod.EventBusSubscriber(modid = MCIWMod.MODID, bus = Mod.EventBusSubscriber.Bus.MOD)
 public class ModEventSubscriber {
 
     @SubscribeEvent
@@ -30,7 +29,7 @@ public class ModEventSubscriber {
     }
 
     public static <T extends IForgeRegistryEntry<T>> T setup(final T entry, final String name) {
-        return setup(entry, new ResourceLocation(TutorialMod.MODID, name));
+        return setup(entry, new ResourceLocation(MCIWMod.MODID, name));
     }
 
     public static <T extends IForgeRegistryEntry<T>> T setup(final T entry, final ResourceLocation registryName) {

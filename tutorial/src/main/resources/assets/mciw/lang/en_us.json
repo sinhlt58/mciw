@@ -1,0 +1,8 @@
+{
+  "item.mciw.example_item": "Example Item",
+  "itemGroup.mciw": "Tutorial Mod",
+  "commands.sinhblack.start": "Started mode: %s",
+  "commands.sinhblack.stop": "Stopped mode: %s",
+  "commands.sinhblack.status.one": "Status: %s -> %s",
+  "commands.sinhblack.status.all": "Started modes: %s"
+}

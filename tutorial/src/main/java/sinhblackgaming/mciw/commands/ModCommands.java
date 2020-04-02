@@ -1,19 +1,15 @@
-package sinhblackgaming.tutorial.commands;
+package sinhblackgaming.mciw.commands;
 
 import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.arguments.StringArgumentType;
 import com.mojang.brigadier.builder.LiteralArgumentBuilder;
-import com.mojang.brigadier.builder.RequiredArgumentBuilder;
 import com.mojang.brigadier.suggestion.SuggestionProvider;
-import com.mojang.brigadier.tree.LiteralCommandNode;
 import net.minecraft.command.CommandSource;
 import net.minecraft.command.Commands;
 import net.minecraft.command.ISuggestionProvider;
 import net.minecraft.util.text.TranslationTextComponent;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-
-import java.util.ArrayList;
 
 public class ModCommands {
     public static final Logger LOGGER = LogManager.getLogger();
@@ -41,7 +37,8 @@ public class ModCommands {
     }
 
     public static int updateMode(CommandSource source, String modeCommand, String mode) {
-        source.sendFeedback(new TranslationTextComponent("commands.sinhblack.start"), true);
+        String tranText = "commands.sinhblack." + modeCommand;
+        source.sendFeedback(new TranslationTextComponent(tranText, mode), true);
         LOGGER.info("modeCommand: " + modeCommand + ", mode: " + mode);
         return 1;
     }
