@@ -3,9 +3,13 @@
   "itemGroup.mciw": "MCIW Mod",
   "commands.sinhblack.start": "Started mode: %s",
   "commands.sinhblack.stop": "Stopped mode: %s",
+  "commands.sinhblack.pause": "Paused mode: %s",
+  "commands.sinhblack.unpause": "Unpaused mode: %s",
   "commands.sinhblack.status": "Status: %s -> %s",
   "commands.sinhblack.start.all": "Started all modes",
   "commands.sinhblack.stop.all": "Stopped all modes",
+  "commands.sinhblack.pause.all": "Paused all modes",
+  "commands.sinhblack.unpause.all": "Unpaused all modes",
   "commands.sinhblack.status.all": "Running modes: %s",
   "commands.sinhblack.no.mode": "Mode %s not found"
 }

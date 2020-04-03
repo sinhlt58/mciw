@@ -20,11 +20,15 @@ public class ModCommands {
     public static final String COMMAND_START = "start";
     public static final String COMMAND_STOP = "stop";
     public static final String COMMAND_STATUS = "status";
+    public static final String COMMAND_PAUSE = "pause";
+    public static final String COMMAND_UNPAUSE = "unpause";
 
     public static final String [] MODE_COMMANDS = {
-        COMMAND_START,
-        COMMAND_STOP,
-        COMMAND_STATUS,
+            COMMAND_START,
+            COMMAND_STOP,
+            COMMAND_STATUS,
+            COMMAND_PAUSE,
+            COMMAND_UNPAUSE,
     };
 
     private static final SuggestionProvider<CommandSource> SUGGEST_MODES = (source, builder) -> {
@@ -69,6 +73,24 @@ public class ModCommands {
                 } else {
                     ModesManager.stopMode(mode);
                     sendFeedBackMode(source, "stop", mode);
+                }
+                break;
+            case COMMAND_PAUSE:
+                if (mode.equals(ModesManager.MODE_ALL)) {
+                    ModesManager.pauseAllModes();
+                    sendFeedBackMode(source, "pause.all");
+                } else {
+                    ModesManager.stopMode(mode);
+                    sendFeedBackMode(source, "pause", mode);
+                }
+                break;
+            case COMMAND_UNPAUSE:
+                if (mode.equals(ModesManager.MODE_ALL)) {
+                    ModesManager.unPauseAllModes();
+                    sendFeedBackMode(source, "unpause.all");
+                } else {
+                    ModesManager.stopMode(mode);
+                    sendFeedBackMode(source, "unpause", mode);
                 }
                 break;
             case COMMAND_STATUS:

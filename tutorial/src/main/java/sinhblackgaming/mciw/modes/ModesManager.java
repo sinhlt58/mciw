@@ -45,6 +45,22 @@ public class ModesManager {
         return true;
     }
 
+    public static boolean pauseMode(String mode){
+        if (!modesMap.containsKey(mode)){
+            return false;
+        }
+        modesMap.get(mode).pause();
+        return true;
+    }
+
+    public static boolean unPauseMode(String mode){
+        if (!modesMap.containsKey(mode)){
+            return false;
+        }
+        modesMap.get(mode).unPause();
+        return true;
+    }
+
     public static String checkModeStatus(String mode){
         if (!modesMap.containsKey(mode)){
             return "";
@@ -61,6 +77,18 @@ public class ModesManager {
     public static void stopAllModes() {
         for(Map.Entry<String, Mode> e : modesMap.entrySet()) {
             stopMode(e.getKey());
+        }
+    }
+
+    public static void pauseAllModes() {
+        for(Map.Entry<String, Mode> e : modesMap.entrySet()) {
+            pauseMode(e.getKey());
+        }
+    }
+
+    public static void unPauseAllModes() {
+        for(Map.Entry<String, Mode> e : modesMap.entrySet()) {
+            unPauseMode(e.getKey());
         }
     }
 
