@@ -1,11 +1,15 @@
 package sinhblackgaming.mciw.events;
 
+import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.monster.SilverfishEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.IWorld;
+import net.minecraft.world.World;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.world.BlockEvent;
+import net.minecraftforge.event.world.WorldEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.server.FMLServerStartingEvent;
@@ -54,6 +58,12 @@ public class ForgeEventSubscriber {
     @SubscribeEvent
     public static void onBlockBreak(BlockEvent.BreakEvent event) {
         ModesManager.blockBreakSilverFish.onBlockBreak(event);
+    }
+
+    @SubscribeEvent
+    public static void onWorldLoad(WorldEvent.Load event) {
+//        World world = event.getWorld().getWorld();
+//        world
     }
 
 //    @SubscribeEvent
