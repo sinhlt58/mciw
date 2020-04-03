@@ -10,6 +10,7 @@ public class Mode {
 
     public Mode(String name){
         this.name = name;
+        this.state = STATE_STOPPED;
     }
 
     public void start(){

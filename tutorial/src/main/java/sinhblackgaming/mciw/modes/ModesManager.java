@@ -26,6 +26,7 @@ public class ModesManager {
             modesMap.put(m.name, m);
             USED_MODE_NAMES.add(m.name);
         }
+        USED_MODE_NAMES.add(MODE_ALL);
     }
 
     public static boolean startMode(String mode){
@@ -64,7 +65,7 @@ public class ModesManager {
     }
 
     public static List<String> getRunningModeNames(){
-        ArrayList<String> res = new ArrayList<>();
+        List<String> res = new ArrayList<>();
         for(Map.Entry<String, Mode> e : modesMap.entrySet()) {
             Mode mode = e.getValue();
             if (mode.isRunning()){
@@ -75,6 +76,6 @@ public class ModesManager {
     }
 
     public static boolean hasMode(String mode) {
-        return modesMap.containsKey(mode);
+        return mode.equals(MODE_ALL) || modesMap.containsKey(mode);
     }
 }
