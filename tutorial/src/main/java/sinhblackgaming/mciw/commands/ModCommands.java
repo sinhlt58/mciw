@@ -4,7 +4,6 @@ import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.arguments.StringArgumentType;
 import com.mojang.brigadier.builder.LiteralArgumentBuilder;
 import com.mojang.brigadier.suggestion.SuggestionProvider;
-import javafx.scene.transform.Translate;
 import net.minecraft.command.CommandSource;
 import net.minecraft.command.Commands;
 import net.minecraft.command.ISuggestionProvider;
@@ -13,8 +12,6 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import sinhblackgaming.mciw.modes.ModesManager;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class ModCommands {
@@ -25,18 +22,18 @@ public class ModCommands {
     public static final String COMMAND_STATUS = "status";
 
     public static final String [] MODE_COMMANDS = {
-            COMMAND_START,
-            COMMAND_STOP,
-            COMMAND_STATUS,
+        COMMAND_START,
+        COMMAND_STOP,
+        COMMAND_STATUS,
     };
 
     private static final SuggestionProvider<CommandSource> SUGGEST_MODES = (source, builder) -> {
-        return ISuggestionProvider.suggest(ModesManager.USED_MODES, builder);
+        return ISuggestionProvider.suggest(ModesManager.USED_MODE_NAMES, builder);
     };
 
     public static void register(CommandDispatcher<CommandSource> dispatcher) {
         LiteralArgumentBuilder<CommandSource> rootCommand = Commands.literal("sinhblack").requires((p) -> {
-            return p.hasPermissionLevel(3);
+            return p.hasPermissionLevel(4);
         });
 
         for (String modeCommand : MODE_COMMANDS) {
@@ -76,7 +73,7 @@ public class ModCommands {
                 break;
             case COMMAND_STATUS:
                 if (mode.equals(ModesManager.MODE_ALL)) {
-                    List<String> runningModes = ModesManager.getRunningModes();
+                    List<String> runningModes = ModesManager.getRunningModeNames();
                     String runningModesStr = String.join(", ", runningModes);
                     if (runningModesStr.isEmpty()){
                         runningModesStr = "...";

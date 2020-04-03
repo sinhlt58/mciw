@@ -13,12 +13,12 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import sinhblackgaming.mciw.MCIWMod;
 import sinhblackgaming.mciw.commands.ModCommands;
+import sinhblackgaming.mciw.modes.ModesManager;
 
 @Mod.EventBusSubscriber(modid = MCIWMod.MODID, bus = Mod.EventBusSubscriber.Bus.FORGE)
 public class ForgeEventSubscriber {
 
     public static final Logger LOGGER = LogManager.getLogger();
-    public static int silverFishSpawnedCount = 0;
 
     @SubscribeEvent
     public static void onServerStarting(final FMLServerStartingEvent event) {
@@ -53,16 +53,7 @@ public class ForgeEventSubscriber {
 
     @SubscribeEvent
     public static void onBlockBreak(BlockEvent.BreakEvent event) {
-        if (!event.getPlayer().world.isRemote) {
-            PlayerEntity player = event.getPlayer();
-            BlockPos pos = event.getPos();
-
-            SilverfishEntity silverFish = EntityType.SILVERFISH.create(player.world);
-            silverFish.setPosition(pos.getX(), pos.getY(), pos.getZ());
-            player.world.addEntity(silverFish);
-
-//            silverFishSpawnedCount += 1;
-        }
+        ModesManager.blockBreakSilverFish.onBlockBreak(event);
     }
 
 //    @SubscribeEvent

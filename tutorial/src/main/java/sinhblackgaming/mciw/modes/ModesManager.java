@@ -7,77 +7,74 @@ import java.util.Map;
 
 public class ModesManager {
 
-    public static String MODE_SILVER_FISH = "silverfish";
-    public static String MODE_MULTIPLY = "multiply";
     public static String MODE_ALL = "all";
 
-    public static String STATUS_RUNNING = "running";
-    public static String STATUS_STOPPED = "stopped";
+    public static ModeBlockBreakSilverFish blockBreakSilverFish = new ModeBlockBreakSilverFish("block_break_silver_fish");
 
+    // register mode here
     // used modes list
-    public static String[] USED_MODES = {
-        MODE_SILVER_FISH,
-        MODE_MULTIPLY,
-        MODE_ALL,
+    public static Mode[] USED_MODES = {
+            blockBreakSilverFish
     };
-    // mode status
-    public static HashMap<String, String> modeStatus = new HashMap<>();
+    // modes map
+    public static HashMap<String, Mode> modesMap = new HashMap<>();
+    // running mode names
+    public static List<String> USED_MODE_NAMES = new ArrayList<>();
 
     public static void initUsedModes() {
-        for(String m : USED_MODES) {
-            modeStatus.put(m, STATUS_STOPPED);
+        for(Mode m : USED_MODES) {
+            modesMap.put(m.name, m);
+            USED_MODE_NAMES.add(m.name);
         }
     }
 
     public static boolean startMode(String mode){
-        if (!modeStatus.containsKey(mode)){
+        if (!modesMap.containsKey(mode)){
             return false;
         }
-        modeStatus.put(mode, STATUS_RUNNING);
+        modesMap.get(mode).start();
         return true;
     }
 
     public static boolean stopMode(String mode){
-        if (!modeStatus.containsKey(mode)){
+        if (!modesMap.containsKey(mode)){
             return false;
         }
-        modeStatus.put(mode, STATUS_STOPPED);
+        modesMap.get(mode).stop();
         return true;
     }
 
     public static String checkModeStatus(String mode){
-        if (!modeStatus.containsKey(mode)){
+        if (!modesMap.containsKey(mode)){
             return "";
         }
-        return modeStatus.get(mode);
+        return modesMap.get(mode).state;
     }
 
     public static void startAllModes() {
-        for(Map.Entry<String, String> e : modeStatus.entrySet()) {
+        for(Map.Entry<String, Mode> e : modesMap.entrySet()) {
             startMode(e.getKey());
         }
     }
 
     public static void stopAllModes() {
-        for(Map.Entry<String, String> e : modeStatus.entrySet()) {
+        for(Map.Entry<String, Mode> e : modesMap.entrySet()) {
             stopMode(e.getKey());
         }
     }
 
-    public static List<String> getRunningModes(){
+    public static List<String> getRunningModeNames(){
         ArrayList<String> res = new ArrayList<>();
-        for(Map.Entry<String, String> e : modeStatus.entrySet()) {
-            String mode = e.getKey();
-            String status = e.getValue();
-
-            if (status.equals(STATUS_RUNNING)) {
-                res.add(mode);
+        for(Map.Entry<String, Mode> e : modesMap.entrySet()) {
+            Mode mode = e.getValue();
+            if (mode.isRunning()){
+                res.add(mode.name);
             }
         }
         return res;
     }
 
     public static boolean hasMode(String mode) {
-        return modeStatus.containsKey(mode);
+        return modesMap.containsKey(mode);
     }
 }
