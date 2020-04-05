@@ -8,7 +8,6 @@ import net.minecraftforge.fml.common.Mod;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import sinhblackgaming.mciw.MCIWMod;
-import sinhblackgaming.mciw.modes.ModesManager;
 
 // render client only
 @Mod.EventBusSubscriber(modid = MCIWMod.MODID, bus = Mod.EventBusSubscriber.Bus.FORGE, value = Dist.CLIENT)
@@ -23,6 +22,5 @@ public class ClientForgeEventSubscriber {
 
     @SubscribeEvent
     static public void onRenderWorldLastEvent(RenderWorldLastEvent event){
-        ModesManager.blockBreakSilverFish.onRenderWorldLastEvent(event);
     }
 }

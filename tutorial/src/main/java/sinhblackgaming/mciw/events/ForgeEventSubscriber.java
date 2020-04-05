@@ -1,23 +1,20 @@
 package sinhblackgaming.mciw.events;
 
-import com.mojang.blaze3d.systems.RenderSystem;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.monster.SilverfishEntity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.IWorld;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
+import net.minecraftforge.event.AttachCapabilitiesEvent;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.world.BlockEvent;
-import net.minecraftforge.event.world.WorldEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.server.FMLServerStartingEvent;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import sinhblackgaming.mciw.MCIWMod;
+import sinhblackgaming.mciw.capabilities.IMoreMode;
+import sinhblackgaming.mciw.capabilities.MoreModeProvider;
 import sinhblackgaming.mciw.commands.ModCommands;
-import sinhblackgaming.mciw.modes.ModesManager;
 
 @Mod.EventBusSubscriber(modid = MCIWMod.MODID, bus = Mod.EventBusSubscriber.Bus.FORGE)
 public class ForgeEventSubscriber {
@@ -57,21 +54,17 @@ public class ForgeEventSubscriber {
 
     @SubscribeEvent
     public static void onBlockBreak(BlockEvent.BreakEvent event) {
-        ModesManager.blockBreakSilverFish.onBlockBreak(event);
+        World world = event.getPlayer().world;
+        if (world.isRemote()) return;
+        world.getCapability(MoreModeProvider.MORE_MODE_CAPABILITY).ifPresent((IMoreMode capMoreMode) -> {
+            capMoreMode.getModeBlockBreakSilverFish().onBlockBreak(event);
+        });
     }
+
 
     @SubscribeEvent
-    public static void onWorldLoad(WorldEvent.Load event) {
-//        World world = event.getWorld().getWorld();
-//        world
+    public static void onAttachCapabilitiesWorld(AttachCapabilitiesEvent<World> event){
+        if (event.getObject().isRemote) return;
+        event.addCapability(new ResourceLocation(MCIWMod.MODID, "moremodes"), new MoreModeProvider());
     }
-
-//    @SubscribeEvent
-//    public static void onLivingUpdate(LivingEvent.LivingUpdateEvent event) {
-//        if (event.getEntity().world.isRemote){
-//            LOGGER.info("IS REMOTE");
-//        } else {
-//            LOGGER.info("NOT REMOTE");
-//        }
-//    }
 }

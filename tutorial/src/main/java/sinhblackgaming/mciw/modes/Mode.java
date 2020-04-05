@@ -1,5 +1,8 @@
 package sinhblackgaming.mciw.modes;
 
+import net.minecraft.nbt.CompoundNBT;
+import sinhblackgaming.mciw.MCIWMod;
+
 public class Mode {
     public static String STATE_RUNNING = "running";
     public static String STATE_STOPPED = "stopped";
@@ -55,4 +58,15 @@ public class Mode {
     public void onPause(){}
     public void onUnPause(){}
     public void onUpdate(){}
+
+    public String getState(){return this.state;}
+    public void setState(String state){this.state = state;}
+
+    public void writeNBT(CompoundNBT tag){
+        tag.putString(MCIWMod.MODID + ".modestate." + name, state);
+    }
+
+    public void readNBT(CompoundNBT nbt){
+        setState(nbt.getString(MCIWMod.MODID + ".modestate." + name));
+    }
 }

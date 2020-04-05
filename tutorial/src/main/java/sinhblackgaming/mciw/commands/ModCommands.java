@@ -8,9 +8,12 @@ import net.minecraft.command.CommandSource;
 import net.minecraft.command.Commands;
 import net.minecraft.command.ISuggestionProvider;
 import net.minecraft.util.text.TranslationTextComponent;
+import net.minecraft.world.server.ServerWorld;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import sinhblackgaming.mciw.modes.ModesManager;
+import sinhblackgaming.mciw.capabilities.IMoreMode;
+import sinhblackgaming.mciw.capabilities.MoreMode;
+import sinhblackgaming.mciw.capabilities.MoreModeProvider;
 
 import java.util.List;
 
@@ -32,7 +35,7 @@ public class ModCommands {
     };
 
     private static final SuggestionProvider<CommandSource> SUGGEST_MODES = (source, builder) -> {
-        return ISuggestionProvider.suggest(ModesManager.USED_MODE_NAMES, builder);
+        return ISuggestionProvider.suggest(MoreMode.USED_MODE_NAMES, builder);
     };
 
     public static void register(CommandDispatcher<CommandSource> dispatcher) {
@@ -51,58 +54,66 @@ public class ModCommands {
     }
 
     public static int updateMode(CommandSource source, String modeCommand, String mode) {
-        if (!ModesManager.hasMode(mode)) {
+        ServerWorld world = source.getWorld();
+        world.getCapability(MoreModeProvider.MORE_MODE_CAPABILITY).ifPresent((IMoreMode capMoreMode) -> {
+            updateMode(capMoreMode, source, modeCommand, mode);
+        });
+        return 1;
+    }
+
+    public static int updateMode(IMoreMode capMoreMode, CommandSource source, String modeCommand, String mode) {
+        if (!capMoreMode.hasMode(mode)) {
             sendFeedBackMode(source, "no.mode", mode);
             return 1;
         }
 
         switch (modeCommand) {
             case COMMAND_START:
-                if (mode.equals(ModesManager.MODE_ALL)) {
-                    ModesManager.startAllModes();
+                if (mode.equals(capMoreMode.getModeAll())) {
+                    capMoreMode.startAllModes();
                     sendFeedBackMode(source, "start.all");
                 } else {
-                    ModesManager.startMode(mode);
+                    capMoreMode.startMode(mode);
                     sendFeedBackMode(source, "start", mode);
                 }
                 break;
             case COMMAND_STOP:
-                if (mode.equals(ModesManager.MODE_ALL)) {
-                    ModesManager.stopAllModes();
+                if (mode.equals(capMoreMode.getModeAll())) {
+                    capMoreMode.stopAllModes();
                     sendFeedBackMode(source, "stop.all");
                 } else {
-                    ModesManager.stopMode(mode);
+                    capMoreMode.stopMode(mode);
                     sendFeedBackMode(source, "stop", mode);
                 }
                 break;
             case COMMAND_PAUSE:
-                if (mode.equals(ModesManager.MODE_ALL)) {
-                    ModesManager.pauseAllModes();
+                if (mode.equals(capMoreMode.getModeAll())) {
+                    capMoreMode.pauseAllModes();
                     sendFeedBackMode(source, "pause.all");
                 } else {
-                    ModesManager.stopMode(mode);
+                    capMoreMode.stopMode(mode);
                     sendFeedBackMode(source, "pause", mode);
                 }
                 break;
             case COMMAND_UNPAUSE:
-                if (mode.equals(ModesManager.MODE_ALL)) {
-                    ModesManager.unPauseAllModes();
+                if (mode.equals(capMoreMode.getModeAll())) {
+                    capMoreMode.unPauseAllModes();
                     sendFeedBackMode(source, "unpause.all");
                 } else {
-                    ModesManager.stopMode(mode);
+                    capMoreMode.stopMode(mode);
                     sendFeedBackMode(source, "unpause", mode);
                 }
                 break;
             case COMMAND_STATUS:
-                if (mode.equals(ModesManager.MODE_ALL)) {
-                    List<String> runningModes = ModesManager.getRunningModeNames();
+                if (mode.equals(capMoreMode.getModeAll())) {
+                    List<String> runningModes = capMoreMode.getRunningModeNames();
                     String runningModesStr = String.join(", ", runningModes);
                     if (runningModesStr.isEmpty()){
                         runningModesStr = "...";
                     }
                     sendFeedBackMode(source, "status.all", runningModesStr);
                 } else {
-                    String status = ModesManager.checkModeStatus(mode);
+                    String status = capMoreMode.checkModeStatus(mode);
                     sendFeedBackMode(source, "status", mode, status);
                 }
                 break;
