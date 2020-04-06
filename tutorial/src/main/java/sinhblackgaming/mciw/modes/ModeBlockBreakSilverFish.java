@@ -1,20 +1,16 @@
 package sinhblackgaming.mciw.modes;
 
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.FontRenderer;
-import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.monster.SilverfishEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
-import net.minecraftforge.client.event.GuiScreenEvent;
-import net.minecraftforge.client.event.RenderWorldLastEvent;
-import net.minecraftforge.event.AttachCapabilitiesEvent;
 import net.minecraftforge.event.world.BlockEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
+import sinhblackgaming.mciw.MCIWMod;
 
 public class ModeBlockBreakSilverFish extends Mode {
+    private int countSilverSilverFish = 0;
+
     public ModeBlockBreakSilverFish(String name){
         super(name);
     }
@@ -27,19 +23,29 @@ public class ModeBlockBreakSilverFish extends Mode {
             SilverfishEntity silverFish = EntityType.SILVERFISH.create(player.world);
             silverFish.setPosition(pos.getX(), pos.getY(), pos.getZ());
             player.world.addEntity(silverFish);
+            increaseCountSilverFish(1);
         }
     }
 
-    // client only
-    public void onGuiScreen(GuiScreenEvent event){
-
+    public void setCountSilverSilverFish(int n){
+        this.countSilverSilverFish = n;
     }
 
-    public void onRenderWorldLastEvent(RenderWorldLastEvent event){
-//        if (this.isRunning()){
-//            System.out.println("onGuiScreen");
-//            FontRenderer font = Minecraft.getInstance().fontRenderer;
-//            font.drawString("Hello World", 0, 0, 4210752);
-//        }
+    public void increaseCountSilverFish(int amount){
+        this.countSilverSilverFish += amount;
+    }
+
+    public int getCountSilverSilverFish(){return this.countSilverSilverFish;}
+
+    @Override
+    public void writeNBT(CompoundNBT tag) {
+        super.writeNBT(tag);
+        tag.putInt(MCIWMod.MODID + ".modedata.blockbreaksilverfish.count", countSilverSilverFish);
+    }
+
+    @Override
+    public void readNBT(CompoundNBT nbt) {
+        super.readNBT(nbt);
+        setCountSilverSilverFish(nbt.getInt(MCIWMod.MODID + ".modedata.blockbreaksilverfish.count"));
     }
 }

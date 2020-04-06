@@ -15,6 +15,7 @@ import sinhblackgaming.mciw.MCIWMod;
 import sinhblackgaming.mciw.capabilities.IMoreMode;
 import sinhblackgaming.mciw.capabilities.MoreModeProvider;
 import sinhblackgaming.mciw.commands.ModCommands;
+import sinhblackgaming.mciw.network.MoreModeSyncHandler;
 
 @Mod.EventBusSubscriber(modid = MCIWMod.MODID, bus = Mod.EventBusSubscriber.Bus.FORGE)
 public class ForgeEventSubscriber {
@@ -58,13 +59,16 @@ public class ForgeEventSubscriber {
         if (world.isRemote()) return;
         world.getCapability(MoreModeProvider.MORE_MODE_CAPABILITY).ifPresent((IMoreMode capMoreMode) -> {
             capMoreMode.getModeBlockBreakSilverFish().onBlockBreak(event);
+            // send to clients
+            MoreModeSyncHandler.sendNecessaryDataToClients(capMoreMode);
         });
     }
 
 
     @SubscribeEvent
     public static void onAttachCapabilitiesWorld(AttachCapabilitiesEvent<World> event){
-        if (event.getObject().isRemote) return;
+//        if (event.getObject().isRemote) return;
+        // IMPORTANT: we both use for client and server worlds
         event.addCapability(new ResourceLocation(MCIWMod.MODID, "moremodes"), new MoreModeProvider());
     }
 }

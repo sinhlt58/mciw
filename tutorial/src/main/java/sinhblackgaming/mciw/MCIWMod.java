@@ -10,6 +10,7 @@ import org.apache.logging.log4j.Logger;
 import sinhblackgaming.mciw.capabilities.IMoreMode;
 import sinhblackgaming.mciw.capabilities.MoreMode;
 import sinhblackgaming.mciw.capabilities.MoreModeStorage;
+import sinhblackgaming.mciw.network.MoreModeSyncHandler;
 
 @Mod(MCIWMod.MODID)
 public class MCIWMod {
@@ -24,5 +25,6 @@ public class MCIWMod {
 
     private void setup(final FMLCommonSetupEvent event) {
         CapabilityManager.INSTANCE.register(IMoreMode.class, new MoreModeStorage(), MoreMode::new);
+        MoreModeSyncHandler.init();
     }
 }

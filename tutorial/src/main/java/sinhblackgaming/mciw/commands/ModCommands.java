@@ -14,6 +14,7 @@ import org.apache.logging.log4j.Logger;
 import sinhblackgaming.mciw.capabilities.IMoreMode;
 import sinhblackgaming.mciw.capabilities.MoreMode;
 import sinhblackgaming.mciw.capabilities.MoreModeProvider;
+import sinhblackgaming.mciw.network.MoreModeSyncHandler;
 
 import java.util.List;
 
@@ -57,7 +58,10 @@ public class ModCommands {
         ServerWorld world = source.getWorld();
         world.getCapability(MoreModeProvider.MORE_MODE_CAPABILITY).ifPresent((IMoreMode capMoreMode) -> {
             updateMode(capMoreMode, source, modeCommand, mode);
+            // send to clients
+            MoreModeSyncHandler.sendNecessaryDataToClients(capMoreMode);
         });
+        // send to client too
         return 1;
     }
 

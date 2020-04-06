@@ -27,13 +27,15 @@ public class MoreModeProvider implements ICapabilitySerializable<INBT> {
     public INBT serializeNBT() {
         return MORE_MODE_CAPABILITY.getStorage()
                 .writeNBT(MORE_MODE_CAPABILITY,
-                        this.instance.orElseThrow(() -> new IllegalArgumentException("LazyOptional must not be empty")), null);
+                        this.instance.orElseThrow(() -> new IllegalArgumentException("LazyOptional must not be empty")),
+                        null);
     }
 
     @Override
     public void deserializeNBT(INBT nbt) {
         MORE_MODE_CAPABILITY.getStorage()
-                .readNBT(MORE_MODE_CAPABILITY, this.instance.orElseThrow(() -> new IllegalArgumentException("LazyOptional must not be empty")),
-                null, nbt);
+                .readNBT(MORE_MODE_CAPABILITY,
+                        this.instance.orElseThrow(() -> new IllegalArgumentException("LazyOptional must not be empty")),
+                        null, nbt);
     }
 }
