@@ -16,7 +16,7 @@ modId="mciw" #mandatory
 # The version number of the mod - there's a few well known ${} variables useable here or just hardcode it
 version="1.15.2-1.0.0" #mandatory
  # A display name for the mod
-displayName="Minecraft is weird" #mandatory
+displayName="Changes but actually no" #mandatory
 # A URL to query for updates for this mod. See the JSON update specification <here>
 #updateJSONURL="http://myurl.me/" #optional
 # A URL for the "homepage" for this mod, displayed in the mod UI
@@ -29,7 +29,7 @@ credits="Thanks everybody who plays Minecraft" #optional
 authors="SinhBlack" #optional
 # The description text for the mod (multi line!) (#mandatory)
 description='''
-Add small changes to Minecraft to have better gameplay experiences.
+Add small changes to Minecraft to have better game-play experiences.
 '''
 # A dependency - use the . to indicate dependency for a specific modid. Dependencies are optional.
 [[dependencies.mciw]] #optional

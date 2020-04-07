@@ -1,1 +1,1 @@
-# Minecraft is weird mod
+# Change but actually no - Minecraft mod
