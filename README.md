@@ -1,1 +1,1 @@
-# minecraf-modding-1.15
+# Minecraft is weird mod
