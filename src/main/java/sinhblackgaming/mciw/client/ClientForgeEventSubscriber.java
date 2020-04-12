@@ -4,6 +4,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.world.ClientWorld;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.GuiScreenEvent;
+import net.minecraftforge.client.event.ParticleFactoryRegisterEvent;
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
 import net.minecraftforge.client.event.RenderWorldLastEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -14,6 +15,8 @@ import org.lwjgl.opengl.GL11;
 import sinhblackgaming.mciw.MCIWMod;
 import sinhblackgaming.mciw.capabilities.IMoreMode;
 import sinhblackgaming.mciw.capabilities.MoreModeProvider;
+import sinhblackgaming.mciw.init.ModParticleTypes;
+import sinhblackgaming.mciw.client.particles.RainLavaParticle;
 
 // render client only
 @Mod.EventBusSubscriber(modid = MCIWMod.MODID, bus = Mod.EventBusSubscriber.Bus.FORGE, value = Dist.CLIENT)
