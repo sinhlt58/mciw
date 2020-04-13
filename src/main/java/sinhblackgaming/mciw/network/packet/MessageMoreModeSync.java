@@ -18,31 +18,40 @@ public class MessageMoreModeSync {
 
     public String modeBlockBreakSilverFishState;
     public int blockBreakSilverFishCount;
+    public String modeRainLavaState;
 
-    public MessageMoreModeSync(String modeBlockBreakSilverFishState, int blockBreakSilverFishCount){
+    public MessageMoreModeSync(
+            String modeBlockBreakSilverFishState,
+            int blockBreakSilverFishCount,
+            String modeRainLavaState
+    ){
         this.modeBlockBreakSilverFishState = modeBlockBreakSilverFishState;
         this.blockBreakSilverFishCount = blockBreakSilverFishCount;
+        this.modeRainLavaState = modeRainLavaState;
     }
 
     public static void encode(MessageMoreModeSync pkt, PacketBuffer buf){
         buf.writeString(pkt.modeBlockBreakSilverFishState);
         buf.writeInt(pkt.blockBreakSilverFishCount);
+        buf.writeString(pkt.modeRainLavaState);
     }
 
     public static MessageMoreModeSync decode(PacketBuffer buf){
         return new MessageMoreModeSync(
                 buf.readString(),
-                buf.readInt()
+                buf.readInt(),
+                buf.readString()
         );
     }
 
     public static void handle(final MessageMoreModeSync message, Supplier<NetworkEvent.Context> ctx){
         ctx.get().enqueueWork(() -> {
-           // update client data
+           // update client capability data
             ClientWorld world = Minecraft.getInstance().world;
             world.getCapability(MoreModeProvider.MORE_MODE_CAPABILITY).ifPresent((IMoreMode capMoreMode) -> {
                 capMoreMode.setState(MoreMode.MODE_BLOCK_BREAK_SILVER_FISH, message.modeBlockBreakSilverFishState);
                 capMoreMode.getModeBlockBreakSilverFish().setCountSilverSilverFish(message.blockBreakSilverFishCount);
+                capMoreMode.setState(MoreMode.MODE_RAIN_LAVA, message.modeRainLavaState);
             });
         });
         ctx.get().setPacketHandled(true);

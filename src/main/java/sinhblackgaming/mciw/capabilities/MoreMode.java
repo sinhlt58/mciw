@@ -4,6 +4,7 @@ import net.minecraft.nbt.CompoundNBT;
 import net.minecraftforge.event.world.BlockEvent;
 import sinhblackgaming.mciw.modes.Mode;
 import sinhblackgaming.mciw.modes.ModeBlockBreakSilverFish;
+import sinhblackgaming.mciw.modes.ModeRainLava;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -12,21 +13,28 @@ import java.util.Map;
 
 public class MoreMode implements IMoreMode {
     public static String MODE_ALL = "all";
+    // register mode here
     public static String MODE_BLOCK_BREAK_SILVER_FISH = "block_break_silver_fish";
+    public static String MODE_RAIN_LAVA = "rain_lava";
 
+    // register mode here
     public static String[] USED_MODE_NAMES = {
             MODE_BLOCK_BREAK_SILVER_FISH,
+            MODE_RAIN_LAVA,
             MODE_ALL,
     };
 
     // register mode here
     public ModeBlockBreakSilverFish modeBlockBreakSilverFish =
             new ModeBlockBreakSilverFish(MODE_BLOCK_BREAK_SILVER_FISH);
+    public ModeRainLava modeRainLava = new ModeRainLava(MODE_RAIN_LAVA);
 
     public HashMap<String, Mode> modesMap = new HashMap<>();
 
+    // register mode here
     public MoreMode(){
         modesMap.put(MODE_BLOCK_BREAK_SILVER_FISH, modeBlockBreakSilverFish);
+        modesMap.put(MODE_RAIN_LAVA, modeRainLava);
     }
 
     @Override
@@ -151,5 +159,10 @@ public class MoreMode implements IMoreMode {
     @Override
     public ModeBlockBreakSilverFish getModeBlockBreakSilverFish() {
         return modeBlockBreakSilverFish;
+    }
+
+    @Override
+    public ModeRainLava getModeRainLava() {
+        return modeRainLava;
     }
 }

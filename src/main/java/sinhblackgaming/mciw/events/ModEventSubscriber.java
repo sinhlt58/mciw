@@ -36,13 +36,9 @@ public class ModEventSubscriber {
 
     @SubscribeEvent
     public static void onParticleTypeRegistration(RegistryEvent.Register<ParticleType<?>> event){
-        LOGGER.info("inside onParticleTypeRegistration");
         ModParticleTypes.RAIN_LAVA = new BasicParticleType(true);
         ModParticleTypes.RAIN_LAVA.setRegistryName(MCIWMod.MODID + ":" + "rain_lava");
         event.getRegistry().register(ModParticleTypes.RAIN_LAVA);
-
-//        PARTICLE_TYPES.register(
-//                "rain_lava", () -> new BasicParticleType(true)
     }
 
     public static <T extends IForgeRegistryEntry<T>> T setup(final T entry, final String name) {

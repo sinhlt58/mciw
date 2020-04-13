@@ -77,8 +77,7 @@ public class ForgeEventSubscriber {
 
     @SubscribeEvent
     public static void onAttachCapabilitiesWorld(AttachCapabilitiesEvent<World> event){
-//        if (event.getObject().isRemote) return;
-        // IMPORTANT: we both use for client and server worlds
+        // IMPORTANT: we use capabilities for both client and server worlds
         event.addCapability(new ResourceLocation(MCIWMod.MODID, "moremodes"), new MoreModeProvider());
     }
 }

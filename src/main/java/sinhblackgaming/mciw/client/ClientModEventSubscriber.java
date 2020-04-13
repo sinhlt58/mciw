@@ -17,7 +17,6 @@ public class ClientModEventSubscriber {
 
     @SubscribeEvent
     public static void registerParticleFactories(ParticleFactoryRegisterEvent event){
-        LOGGER.info("inside registerParticleFactories");
         Minecraft mc = Minecraft.getInstance();
         mc.particles.registerFactory(ModParticleTypes.RAIN_LAVA, RainLavaParticle.Factory::new);
     }

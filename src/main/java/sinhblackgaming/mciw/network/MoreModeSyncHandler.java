@@ -27,7 +27,8 @@ public class MoreModeSyncHandler {
     public static void sendNecessaryDataToClients(IMoreMode moreModeCap){
         MessageMoreModeSync msg = new MessageMoreModeSync(
                 moreModeCap.getModeBlockBreakSilverFish().getState(),
-                moreModeCap.getModeBlockBreakSilverFish().getCountSilverSilverFish()
+                moreModeCap.getModeBlockBreakSilverFish().getCountSilverSilverFish(),
+                moreModeCap.getModeRainLava().getState()
         );
         // send to all connected players
         CHANNEL.send(PacketDistributor.ALL.noArg(), msg);

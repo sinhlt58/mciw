@@ -67,6 +67,11 @@ public class Mode {
     }
 
     public void readNBT(CompoundNBT nbt){
-        setState(nbt.getString(MCIWMod.MODID + ".modestate." + name));
+
+        String state = nbt.getString(MCIWMod.MODID + ".modestate." + name);
+        if (state.isEmpty()) {
+            state = STATE_STOPPED;
+        }
+        setState(state);
     }
 }

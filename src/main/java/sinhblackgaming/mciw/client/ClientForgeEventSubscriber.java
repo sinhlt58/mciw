@@ -31,6 +31,7 @@ public class ClientForgeEventSubscriber {
 
     @SubscribeEvent
     static public void onRenderGameOverlayEvent(RenderGameOverlayEvent event){
+        // update block break silver fish mode
         // render count silver fish for mode block break silver fish
         if(event.getType() == RenderGameOverlayEvent.ElementType.TEXT){
             ClientWorld world = Minecraft.getInstance().world;
@@ -47,5 +48,11 @@ public class ClientForgeEventSubscriber {
 
     @SubscribeEvent
     static public void onRenderWorldLastEvent(RenderWorldLastEvent event){
+        // update rain lava mode
+        ClientWorld world = Minecraft.getInstance().world;
+        IMoreMode capMoreMode = world.getCapability(MoreModeProvider.MORE_MODE_CAPABILITY).orElseThrow(IllegalAccessError::new);
+        if (capMoreMode.getModeRainLava().isRunning()){
+            capMoreMode.getModeRainLava().drawOnEvent(event);
+        }
     }
 }
