@@ -1,9 +1,13 @@
 package sinhblackgaming.mciw.modes;
 
+import net.minecraft.block.BlockState;
+import net.minecraft.block.Blocks;
+import net.minecraft.block.FireBlock;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.WorldRenderer;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.Direction;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.Heightmap;
@@ -12,6 +16,9 @@ import net.minecraftforge.event.TickEvent;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import sinhblackgaming.mciw.init.ModParticleTypes;
+import sun.rmi.runtime.Log;
+
+import java.util.stream.Stream;
 
 
 public class ModeRainLava extends Mode {
@@ -23,6 +30,8 @@ public class ModeRainLava extends Mode {
     public int front = 20;
     public int rate = 25;
     public int rateCount = 0;
+
+    public float fireBlockChance = 0.0001f;
 
     public ModeRainLava(String name) {
         super(name);
@@ -67,9 +76,35 @@ public class ModeRainLava extends Mode {
 
         BlockPos playerPos = player.getPosition();
         World world = player.world;
+        // check if there is any block above the player
         boolean flag = world.getHeight(Heightmap.Type.MOTION_BLOCKING, playerPos).getY() > playerPos.getY();
         if (!flag && !player.isInLava()) {
             player.setInLava();
+        }
+
+        // spawn fireblocks on top of leaf and wood blocks
+        Stream<BlockPos> positions = playerPos.getAllInBox(playerPos.add(-width, -width, -width), playerPos.add(width, width, width));
+
+        positions.forEach((BlockPos pos) -> {
+            this.spawnFireBlockOrNot(world, pos);
+        });
+    }
+
+    public void spawnFireBlockOrNot(World world, BlockPos pos){
+        BlockState blockState = world.getBlockState(pos);
+        String n = blockState.getBlock().getRegistryName().toString();
+        if (n.endsWith("_wood") || n.endsWith("_leaves") || n.equals("_log")){
+            // == 1 is important here
+            boolean flag = world.getHeight(Heightmap.Type.MOTION_BLOCKING, pos).getY() - pos.getY() == 1;
+            if (flag){
+                BlockPos abovePos = pos.up();
+                BlockState blockStateAbove = world.getBlockState(abovePos);
+                if (blockStateAbove.getBlock().getRegistryName().toString().equals("minecraft:air")){
+                    if (Math.random() <= fireBlockChance){
+                        world.setBlockState(abovePos, Blocks.FIRE.getDefaultState());
+                    }
+                }
+            }
         }
     }
 }
