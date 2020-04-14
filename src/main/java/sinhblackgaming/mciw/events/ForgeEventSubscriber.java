@@ -31,27 +31,11 @@ public class ForgeEventSubscriber {
 
     @SubscribeEvent
     public static void onPlayerTick(TickEvent.PlayerTickEvent event) {
-        PlayerEntity player = event.player;
-        if (!player.world.isRemote) {
-//            BlockPos pos = player.getPosition();
-//            Direction facingDirection = player.getHorizontalFacing();
-//            pos = pos.offset(facingDirection).offset(facingDirection);
-//            pos = pos.up();
-//
-////            SilverfishEntity silverFish = EntityType.SILVERFISH.create(player.world);
-////            silverFish.setPosition(pos.getX(), pos.getY(), pos.getZ());
-////
-////            player.world.addEntity(silverFish);
-//
-//            LOGGER.info("Player pos: " + player.getPosition());
-//            LOGGER.info("Facing direction: " + facingDirection);
-//            LOGGER.info("Offset pos: " + pos);
-        }
-//        if (event.player.world.isRemote){
-//            LOGGER.info("onPlayerTick IS REMOTE");
-//        } else {
-//            LOGGER.info("onPlayerTick NOT REMOTE");
-//        }
+        World world = event.player.world;
+        if (world.isRemote()) return;
+        IMoreMode moreModeCap =  world.getCapability(MoreModeProvider.MORE_MODE_CAPABILITY).orElseThrow(RuntimeException::new);
+        // update mode rain lava
+        moreModeCap.getModeRainLava().onPlayerTick(event);
     }
 
     @SubscribeEvent

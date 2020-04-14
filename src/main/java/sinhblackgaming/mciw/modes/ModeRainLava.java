@@ -2,9 +2,13 @@ package sinhblackgaming.mciw.modes;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.WorldRenderer;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.World;
+import net.minecraft.world.gen.Heightmap;
 import net.minecraftforge.client.event.RenderWorldLastEvent;
+import net.minecraftforge.event.TickEvent;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import sinhblackgaming.mciw.init.ModParticleTypes;
@@ -50,8 +54,22 @@ public class ModeRainLava extends Mode {
                 BlockPos p = rootGen.offset(widthLoopDir, i);
                 p = p.offset(frontLoopDir, j);
 
-                mc.particles.addParticle(ModParticleTypes.RAIN_LAVA, p.getX() + 0.5, p.getY(), p.getZ() + 0.5, 0.0, 0.0, 0.0);
+                mc.particles.addParticle(ModParticleTypes.RAIN_LAVA,
+                        p.getX() + 0.5, p.getY(), p.getZ() + 0.5,
+                        0.0, 0.0, 0.0);
             }
+        }
+    }
+
+    public void onPlayerTick(TickEvent.PlayerTickEvent event) {
+        PlayerEntity player = event.player;
+        if (player.world.isRemote || !this.isRunning()) return;
+
+        BlockPos playerPos = player.getPosition();
+        World world = player.world;
+        boolean flag = world.getHeight(Heightmap.Type.MOTION_BLOCKING, playerPos).getY() > playerPos.getY();
+        if (!flag && !player.isInLava()) {
+            player.setInLava();
         }
     }
 }
