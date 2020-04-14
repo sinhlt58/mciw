@@ -16,7 +16,6 @@ import net.minecraftforge.event.TickEvent;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import sinhblackgaming.mciw.init.ModParticleTypes;
-import sun.rmi.runtime.Log;
 
 import java.util.stream.Stream;
 
@@ -25,13 +24,14 @@ public class ModeRainLava extends Mode {
 
     public static final Logger LOGGER = LogManager.getLogger();
 
-    public int yFromPlayer = 30;
+    public int yRootRain = 110;
     public int width = 30;
     public int front = 20;
     public int rate = 25;
     public int rateCount = 0;
+    public double ranYSpawnRange = 10;
 
-    public float fireBlockChance = 0.0001f;
+    public float fireBlockChance = 0.00001f;
 
     public ModeRainLava(String name) {
         super(name);
@@ -50,8 +50,8 @@ public class ModeRainLava extends Mode {
         Direction facingDir = mc.player.getHorizontalFacing();
 
         // calculate top-left gen direction
-        BlockPos rootGen = playerPos.offset(facingDir, front);
-        rootGen = rootGen.up(yFromPlayer);
+        BlockPos rootGen = new BlockPos(playerPos.getX(), yRootRain, playerPos.getZ());
+        rootGen = rootGen.offset(facingDir, front);
         Direction rootGenDir = facingDir.rotateY().getOpposite();
         rootGen = rootGen.offset(rootGenDir, width/2);
 
@@ -63,8 +63,10 @@ public class ModeRainLava extends Mode {
                 BlockPos p = rootGen.offset(widthLoopDir, i);
                 p = p.offset(frontLoopDir, j);
 
+                double deltaY = -ranYSpawnRange + Math.random()*ranYSpawnRange*2;
+
                 mc.particles.addParticle(ModParticleTypes.RAIN_LAVA,
-                        p.getX() + 0.5, p.getY(), p.getZ() + 0.5,
+                        p.getX() + 0.5, p.getY() + deltaY, p.getZ() + 0.5,
                         0.0, 0.0, 0.0);
             }
         }
