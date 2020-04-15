@@ -6,11 +6,16 @@ import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.CapabilityInject;
 import net.minecraftforge.common.capabilities.ICapabilitySerializable;
 import net.minecraftforge.common.util.LazyOptional;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 public class MoreModeProvider implements ICapabilitySerializable<INBT> {
+    public static final Logger LOGGER = LogManager.getLogger();
+
+    @CapabilityInject(IMoreMode.class)
     public static  Capability<IMoreMode> MORE_MODE_CAPABILITY = null;
 
     /**
@@ -18,13 +23,14 @@ public class MoreModeProvider implements ICapabilitySerializable<INBT> {
      for all the worlds object (over world, nether world, end world)
      so we don't create a new cap instance for each world
     * */
-    private static LazyOptional<IMoreMode> instance = null;
+    private  LazyOptional<IMoreMode> instance = LazyOptional.of(MORE_MODE_CAPABILITY::getDefaultInstance);
+//    private static LazyOptional<IMoreMode> instance = null;
 
-    @CapabilityInject(IMoreMode.class)
-    private static void onRegisteredCap(Capability<IMoreMode> cap){
-        MORE_MODE_CAPABILITY = cap;
-        instance = LazyOptional.of(MORE_MODE_CAPABILITY::getDefaultInstance);
-    }
+//    @CapabilityInject(IMoreMode.class)
+//    private static void onRegisteredCap(Capability<IMoreMode> cap){
+//        MORE_MODE_CAPABILITY = cap;
+//        instance = LazyOptional.of(MORE_MODE_CAPABILITY::getDefaultInstance);
+//    }
 
     @Nonnull
     @Override

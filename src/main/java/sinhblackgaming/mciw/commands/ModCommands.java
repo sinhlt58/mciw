@@ -55,13 +55,15 @@ public class ModCommands {
     }
 
     public static int updateMode(CommandSource source, String modeCommand, String mode) {
-        ServerWorld world = source.getWorld();
-        world.getCapability(MoreModeProvider.MORE_MODE_CAPABILITY).ifPresent((IMoreMode capMoreMode) -> {
-            updateMode(capMoreMode, source, modeCommand, mode);
-            // send to clients
-            MoreModeSyncHandler.sendNecessaryDataToClients(capMoreMode);
-        });
-        // send to client too
+        // ATTENTION: We need to update for all worlds (Over-world, Nether, End, ...)
+        for (ServerWorld world : source.getServer().getWorlds()){
+            LOGGER.info("inside updateMode world type: " + world.dimension.getType());
+            world.getCapability(MoreModeProvider.MORE_MODE_CAPABILITY).ifPresent((IMoreMode capMoreMode) -> {
+                updateMode(capMoreMode, source, modeCommand, mode);
+                // send to clients
+                MoreModeSyncHandler.sendNecessaryDataToClients(capMoreMode);
+            });
+        }
         return 1;
     }
 

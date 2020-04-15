@@ -15,7 +15,7 @@ public class RainLavaParticle extends RainParticle {
     private RainLavaParticle(World worldIn, double xCoordIn, double yCoordIn, double zCoordIn, double xSpeedIn, double ySpeedIn, double zSpeedIn) {
         super(worldIn, xCoordIn, yCoordIn, zCoordIn);
         this.particleGravity = 0.2F;
-        this.maxAge = (int) 60D;
+        this.maxAge = (int) 80D;
         this.setSize(0.01f, 0.01f);
     }
     public static final Logger LOGGER = LogManager.getLogger();

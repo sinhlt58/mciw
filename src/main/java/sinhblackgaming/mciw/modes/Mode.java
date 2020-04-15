@@ -1,12 +1,15 @@
 package sinhblackgaming.mciw.modes;
 
 import net.minecraft.nbt.CompoundNBT;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import sinhblackgaming.mciw.MCIWMod;
 
 public class Mode {
     public static String STATE_RUNNING = "running";
     public static String STATE_STOPPED = "stopped";
     public static String STATE_PAUSED = "paused";
+    public static final Logger LOGGER = LogManager.getLogger();
 
     public String state;
     public String name;
@@ -63,11 +66,12 @@ public class Mode {
     public void setState(String state){this.state = state;}
 
     public void writeNBT(CompoundNBT tag){
-        tag.putString(MCIWMod.MODID + ".modestate." + name, state);
+         LOGGER.info("writeNBT");
+         tag.putString(MCIWMod.MODID + ".modestate." + name, state);
     }
 
     public void readNBT(CompoundNBT nbt){
-
+        LOGGER.info("readNBT");
         String state = nbt.getString(MCIWMod.MODID + ".modestate." + name);
         if (state.isEmpty()) {
             state = STATE_STOPPED;

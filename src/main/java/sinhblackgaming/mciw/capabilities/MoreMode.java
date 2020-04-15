@@ -2,6 +2,8 @@ package sinhblackgaming.mciw.capabilities;
 
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraftforge.event.world.BlockEvent;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import sinhblackgaming.mciw.modes.Mode;
 import sinhblackgaming.mciw.modes.ModeBlockBreakSilverFish;
 import sinhblackgaming.mciw.modes.ModeRainLava;
@@ -12,6 +14,7 @@ import java.util.List;
 import java.util.Map;
 
 public class MoreMode implements IMoreMode {
+    public static final Logger LOGGER = LogManager.getLogger();
     public static String MODE_ALL = "all";
     // register mode here
     public static String MODE_BLOCK_BREAK_SILVER_FISH = "block_break_silver_fish";
@@ -30,9 +33,12 @@ public class MoreMode implements IMoreMode {
     public ModeRainLava modeRainLava = new ModeRainLava(MODE_RAIN_LAVA);
 
     public HashMap<String, Mode> modesMap = new HashMap<>();
+    public static int count = 0;
 
     // register mode here
     public MoreMode(){
+        count += 1;
+        LOGGER.info("MoreMode instance count: " + count);
         modesMap.put(MODE_BLOCK_BREAK_SILVER_FISH, modeBlockBreakSilverFish);
         modesMap.put(MODE_RAIN_LAVA, modeRainLava);
     }
