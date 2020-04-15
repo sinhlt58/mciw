@@ -11,11 +11,20 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 public class MoreModeProvider implements ICapabilitySerializable<INBT> {
+    public static  Capability<IMoreMode> MORE_MODE_CAPABILITY = null;
+
+    /**
+     IMPORTANT HERE: We use only ONE instance of IMoreMode cap
+     for all the worlds object (over world, nether world, end world)
+     so we don't create a new cap instance for each world
+    * */
+    private static LazyOptional<IMoreMode> instance = null;
 
     @CapabilityInject(IMoreMode.class)
-    public static final Capability<IMoreMode> MORE_MODE_CAPABILITY = null;
-
-    private LazyOptional<IMoreMode> instance = LazyOptional.of(MORE_MODE_CAPABILITY::getDefaultInstance);
+    private static void onRegisteredCap(Capability<IMoreMode> cap){
+        MORE_MODE_CAPABILITY = cap;
+        instance = LazyOptional.of(MORE_MODE_CAPABILITY::getDefaultInstance);
+    }
 
     @Nonnull
     @Override
