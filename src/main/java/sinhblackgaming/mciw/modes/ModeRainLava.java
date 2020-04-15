@@ -25,12 +25,14 @@ public class ModeRainLava extends Mode {
     public static final Logger LOGGER = LogManager.getLogger();
 
     public int yRootRain = 110;
-    public int width = 30;
-    public int front = 20;
+    public int width = 16;
+    public int front = 8;
     public int rate = 25;
     public int rateCount = 0;
     public double ranYSpawnRange = 10;
+    public double spawnParticleChance = 0.5D;
 
+    public int fireBlockRange = 16;
     public float fireBlockChance = 0.00001f;
 
     public ModeRainLava(String name) {
@@ -60,6 +62,10 @@ public class ModeRainLava extends Mode {
         Direction frontLoopDir = facingDir.getOpposite();
         for (int i=0; i<width; i++){
             for (int j=0; j<front*2; j++) {
+                if (spawnParticleChance >= Math.random()){
+                    continue;
+                }
+
                 BlockPos p = rootGen.offset(widthLoopDir, i);
                 p = p.offset(frontLoopDir, j);
 
@@ -85,7 +91,8 @@ public class ModeRainLava extends Mode {
         }
 
         // spawn fireblocks on top of leaf and wood blocks
-        Stream<BlockPos> positions = playerPos.getAllInBox(playerPos.add(-width, -width, -width), playerPos.add(width, width, width));
+        Stream<BlockPos> positions = playerPos.getAllInBox(playerPos.add(-fireBlockRange, -fireBlockRange, -fireBlockRange),
+                playerPos.add(fireBlockRange, fireBlockRange, fireBlockRange));
 
         positions.forEach((BlockPos pos) -> {
             this.spawnFireBlockOrNot(world, pos);

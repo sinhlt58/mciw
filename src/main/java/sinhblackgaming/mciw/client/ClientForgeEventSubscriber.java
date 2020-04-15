@@ -49,6 +49,8 @@ public class ClientForgeEventSubscriber {
     @SubscribeEvent
     static public void onRenderWorldLastEvent(RenderWorldLastEvent event){
         // update rain lava mode
+        // do nothing if the game is paused
+        if (Minecraft.getInstance().isGamePaused()) return;
         ClientWorld world = Minecraft.getInstance().world;
         IMoreMode capMoreMode = world.getCapability(MoreModeProvider.MORE_MODE_CAPABILITY).orElseThrow(IllegalAccessError::new);
         if (capMoreMode.getModeRainLava().isRunning()){
