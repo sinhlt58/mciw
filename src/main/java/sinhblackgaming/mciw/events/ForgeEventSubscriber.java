@@ -25,7 +25,6 @@ public class ForgeEventSubscriber {
 
     @SubscribeEvent
     public static void onServerStarting(final FMLServerStartingEvent event) {
-        LOGGER.info("register mod commands");
         ModCommands.register(event.getCommandDispatcher());
     }
 
@@ -61,14 +60,11 @@ public class ForgeEventSubscriber {
 
     @SubscribeEvent
     public static void onAttachCapabilitiesWorld(AttachCapabilitiesEvent<World> event){
-        LOGGER.info("inside onAttachCapabilitiesWorld");
+        /**
+         * IMPORTANT: We use capabilities for both client and server worlds
+         * and all the worlds with the same seed use the same capability object.
+        **/
         World world = event.getObject();
-        if (world.isRemote) {
-            LOGGER.info("client type: " + world.dimension.getType());
-        } else {
-            LOGGER.info("server type: " + world.dimension.getType());
-        }
-        // IMPORTANT: we use capabilities for both client and server worlds
-        event.addCapability(new ResourceLocation(MCIWMod.MODID, "moremodes"), new MoreModeProvider());
+        event.addCapability(new ResourceLocation(MCIWMod.MODID, "moremodes"), new MoreModeProvider(world.getSeed()));
     }
 }

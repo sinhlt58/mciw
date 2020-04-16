@@ -8,6 +8,7 @@ import net.minecraft.command.CommandSource;
 import net.minecraft.command.Commands;
 import net.minecraft.command.ISuggestionProvider;
 import net.minecraft.util.text.TranslationTextComponent;
+import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -55,15 +56,12 @@ public class ModCommands {
     }
 
     public static int updateMode(CommandSource source, String modeCommand, String mode) {
-        // ATTENTION: We need to update for all worlds (Over-world, Nether, End, ...)
-        for (ServerWorld world : source.getServer().getWorlds()){
-            LOGGER.info("inside updateMode world type: " + world.dimension.getType());
-            world.getCapability(MoreModeProvider.MORE_MODE_CAPABILITY).ifPresent((IMoreMode capMoreMode) -> {
-                updateMode(capMoreMode, source, modeCommand, mode);
-                // send to clients
-                MoreModeSyncHandler.sendNecessaryDataToClients(capMoreMode);
-            });
-        }
+        World world = source.getWorld();
+        world.getCapability(MoreModeProvider.MORE_MODE_CAPABILITY).ifPresent((IMoreMode capMoreMode) -> {
+            updateMode(capMoreMode, source, modeCommand, mode);
+            // send to clients
+            MoreModeSyncHandler.sendNecessaryDataToClients(capMoreMode);
+        });
         return 1;
     }
 
