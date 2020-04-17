@@ -9,7 +9,6 @@ import sinhblackgaming.mciw.MCIWMod;
 public class PlayerCapability implements IPlayerCapability {
     public BlockPos previousLookBlockPos = new BlockPos(0, 1000, 0);
     private String dataKey = MCIWMod.MODID + ".playercap.prelookblockpos";
-    public static Logger LOGGER = LogManager.getLogger();
 
 
     @Override
@@ -33,8 +32,6 @@ public class PlayerCapability implements IPlayerCapability {
 
     @Override
     public void readNBT(CompoundNBT nbt) {
-        int x = nbt.getInt(dataKey + ".x");
-        LOGGER.info("x: " + x);
         previousLookBlockPos = new BlockPos(
                 nbt.getInt(dataKey + ".x"),
                 nbt.getInt(dataKey + ".y"),

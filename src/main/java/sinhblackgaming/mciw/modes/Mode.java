@@ -9,7 +9,6 @@ public class Mode {
     public static String STATE_RUNNING = "running";
     public static String STATE_STOPPED = "stopped";
     public static String STATE_PAUSED = "paused";
-    public static final Logger LOGGER = LogManager.getLogger();
 
     public String state;
     public String name;
@@ -66,12 +65,10 @@ public class Mode {
     public void setState(String state){this.state = state;}
 
     public void writeNBT(CompoundNBT tag){
-         LOGGER.info("writeNBT");
          tag.putString(MCIWMod.MODID + ".modestate." + name, state);
     }
 
     public void readNBT(CompoundNBT nbt){
-        LOGGER.info("readNBT");
         String state = nbt.getString(MCIWMod.MODID + ".modestate." + name);
         if (state.isEmpty()) {
             state = STATE_STOPPED;
