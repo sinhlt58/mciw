@@ -14,8 +14,11 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import sinhblackgaming.mciw.MCIWMod;
 import sinhblackgaming.mciw.capabilities.IMoreMode;
+import sinhblackgaming.mciw.capabilities.MoreMode;
 import sinhblackgaming.mciw.capabilities.MoreModeProvider;
 import sinhblackgaming.mciw.commands.ModCommands;
+import sinhblackgaming.mciw.modes.ModeBlockBreakSilverFish;
+import sinhblackgaming.mciw.modes.ModeRainLava;
 import sinhblackgaming.mciw.network.MoreModeSyncHandler;
 
 @Mod.EventBusSubscriber(modid = MCIWMod.MODID, bus = Mod.EventBusSubscriber.Bus.FORGE)
@@ -34,7 +37,7 @@ public class ForgeEventSubscriber {
         if (world.isRemote()) return;
         IMoreMode moreModeCap =  world.getCapability(MoreModeProvider.MORE_MODE_CAPABILITY).orElseThrow(RuntimeException::new);
         // update mode rain lava
-        moreModeCap.getModeRainLava().onPlayerTick(event);
+        ((ModeRainLava)moreModeCap.getMode(MoreMode.MODE_RAIN_LAVA)).onPlayerTick(event);
     }
 
     @SubscribeEvent
@@ -42,7 +45,8 @@ public class ForgeEventSubscriber {
         World world = event.getPlayer().world;
         if (world.isRemote()) return;
         world.getCapability(MoreModeProvider.MORE_MODE_CAPABILITY).ifPresent((IMoreMode capMoreMode) -> {
-            capMoreMode.getModeBlockBreakSilverFish().onBlockBreak(event);
+            ModeBlockBreakSilverFish mode = capMoreMode.getMode(MoreMode.MODE_BLOCK_BREAK_SILVER_FISH);
+            mode.onBlockBreak(event);
             // send to clients
             MoreModeSyncHandler.sendNecessaryDataToClients(capMoreMode);
         });

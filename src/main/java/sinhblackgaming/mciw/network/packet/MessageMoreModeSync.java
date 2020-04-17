@@ -10,6 +10,7 @@ import org.apache.logging.log4j.Logger;
 import sinhblackgaming.mciw.capabilities.IMoreMode;
 import sinhblackgaming.mciw.capabilities.MoreMode;
 import sinhblackgaming.mciw.capabilities.MoreModeProvider;
+import sinhblackgaming.mciw.modes.ModeBlockBreakSilverFish;
 
 import java.util.function.Supplier;
 
@@ -49,8 +50,10 @@ public class MessageMoreModeSync {
            // update client capability data
             ClientWorld world = Minecraft.getInstance().world;
             world.getCapability(MoreModeProvider.MORE_MODE_CAPABILITY).ifPresent((IMoreMode capMoreMode) -> {
+                ModeBlockBreakSilverFish m1 = capMoreMode.getMode(MoreMode.MODE_BLOCK_BREAK_SILVER_FISH);
+
                 capMoreMode.setState(MoreMode.MODE_BLOCK_BREAK_SILVER_FISH, message.modeBlockBreakSilverFishState);
-                capMoreMode.getModeBlockBreakSilverFish().setCountSilverSilverFish(message.blockBreakSilverFishCount);
+                m1.setCountSilverSilverFish(message.blockBreakSilverFishCount);
                 capMoreMode.setState(MoreMode.MODE_RAIN_LAVA, message.modeRainLavaState);
             });
         });

@@ -1,11 +1,14 @@
 package sinhblackgaming.mciw.network;
 
+import com.google.common.base.MoreObjects;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.network.NetworkRegistry;
 import net.minecraftforge.fml.network.PacketDistributor;
 import net.minecraftforge.fml.network.simple.SimpleChannel;
 import sinhblackgaming.mciw.MCIWMod;
 import sinhblackgaming.mciw.capabilities.IMoreMode;
+import sinhblackgaming.mciw.capabilities.MoreMode;
+import sinhblackgaming.mciw.modes.ModeBlockBreakSilverFish;
 import sinhblackgaming.mciw.network.packet.MessageMoreModeSync;
 
 public class MoreModeSyncHandler {
@@ -25,10 +28,12 @@ public class MoreModeSyncHandler {
     }
 
     public static void sendNecessaryDataToClients(IMoreMode moreModeCap){
+        ModeBlockBreakSilverFish m1 = moreModeCap.getMode(MoreMode.MODE_BLOCK_BREAK_SILVER_FISH);
+
         MessageMoreModeSync msg = new MessageMoreModeSync(
-                moreModeCap.getModeBlockBreakSilverFish().getState(),
-                moreModeCap.getModeBlockBreakSilverFish().getCountSilverSilverFish(),
-                moreModeCap.getModeRainLava().getState()
+                m1.getState(),
+                m1.getCountSilverSilverFish(),
+                moreModeCap.getMode(MoreMode.MODE_RAIN_LAVA).getState()
         );
         // send to all connected players
         CHANNEL.send(PacketDistributor.ALL.noArg(), msg);

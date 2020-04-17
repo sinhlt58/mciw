@@ -19,11 +19,13 @@ public class MoreMode implements IMoreMode {
     // register mode here
     public static String MODE_BLOCK_BREAK_SILVER_FISH = "block_break_silver_fish";
     public static String MODE_RAIN_LAVA = "rain_lava";
+    public static String MODE_RANDOM_BLOCK_LOOK = "random_block_look";
 
     // register mode here
     public static String[] USED_MODE_NAMES = {
             MODE_BLOCK_BREAK_SILVER_FISH,
             MODE_RAIN_LAVA,
+            MODE_RANDOM_BLOCK_LOOK,
             MODE_ALL,
     };
 
@@ -163,12 +165,8 @@ public class MoreMode implements IMoreMode {
     }
 
     @Override
-    public ModeBlockBreakSilverFish getModeBlockBreakSilverFish() {
-        return modeBlockBreakSilverFish;
-    }
-
-    @Override
-    public ModeRainLava getModeRainLava() {
-        return modeRainLava;
+    public <T extends Mode> T getMode(String mode) {
+        if (!this.modesMap.containsKey(mode)) return null;
+        return (T) this.modesMap.get(mode);
     }
 }

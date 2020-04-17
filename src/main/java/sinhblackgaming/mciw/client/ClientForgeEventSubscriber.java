@@ -14,9 +14,10 @@ import org.apache.logging.log4j.Logger;
 import org.lwjgl.opengl.GL11;
 import sinhblackgaming.mciw.MCIWMod;
 import sinhblackgaming.mciw.capabilities.IMoreMode;
+import sinhblackgaming.mciw.capabilities.MoreMode;
 import sinhblackgaming.mciw.capabilities.MoreModeProvider;
-import sinhblackgaming.mciw.init.ModParticleTypes;
-import sinhblackgaming.mciw.client.particles.RainLavaParticle;
+import sinhblackgaming.mciw.modes.ModeBlockBreakSilverFish;
+import sinhblackgaming.mciw.modes.ModeRainLava;
 
 // render client only
 @Mod.EventBusSubscriber(modid = MCIWMod.MODID, bus = Mod.EventBusSubscriber.Bus.FORGE, value = Dist.CLIENT)
@@ -36,8 +37,9 @@ public class ClientForgeEventSubscriber {
         if(event.getType() == RenderGameOverlayEvent.ElementType.TEXT){
             ClientWorld world = Minecraft.getInstance().world;
             IMoreMode capMoreMode = world.getCapability(MoreModeProvider.MORE_MODE_CAPABILITY).orElseThrow(IllegalStateException::new);
-            if (capMoreMode.getModeBlockBreakSilverFish().isRunning()) {
-                int count = capMoreMode.getModeBlockBreakSilverFish().getCountSilverSilverFish();
+            ModeBlockBreakSilverFish mode = capMoreMode.getMode(MoreMode.MODE_BLOCK_BREAK_SILVER_FISH);
+            if (mode.isRunning()) {
+                int count = mode.getCountSilverSilverFish();
                 GL11.glPushMatrix();
                 GL11.glScalef(1.1f, 1.1f, 1.1f);
                 Minecraft.getInstance().fontRenderer.drawString(Integer.toString(count), 0, 0, 0xFFFFFF);
@@ -53,8 +55,9 @@ public class ClientForgeEventSubscriber {
         if (Minecraft.getInstance().isGamePaused()) return;
         ClientWorld world = Minecraft.getInstance().world;
         IMoreMode capMoreMode = world.getCapability(MoreModeProvider.MORE_MODE_CAPABILITY).orElseThrow(IllegalAccessError::new);
-        if (capMoreMode.getModeRainLava().isRunning()){
-            capMoreMode.getModeRainLava().drawOnEvent(event);
+        ModeRainLava mode = capMoreMode.getMode(MoreMode.MODE_RAIN_LAVA);
+        if (mode.isRunning()){
+            mode.drawOnEvent(event);
         }
     }
 }

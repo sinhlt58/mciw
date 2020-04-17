@@ -2,6 +2,7 @@ package sinhblackgaming.mciw.capabilities;
 
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraftforge.event.world.BlockEvent;
+import sinhblackgaming.mciw.modes.Mode;
 import sinhblackgaming.mciw.modes.ModeBlockBreakSilverFish;
 import sinhblackgaming.mciw.modes.ModeRainLava;
 
@@ -27,7 +28,5 @@ public interface IMoreMode {
     CompoundNBT writeNBT();
     void readNBT(CompoundNBT nbt);
 
-    // mode specific functions here
-    ModeBlockBreakSilverFish getModeBlockBreakSilverFish();
-    ModeRainLava getModeRainLava();
+    <T extends Mode> T getMode(String mode);
 }
