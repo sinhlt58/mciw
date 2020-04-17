@@ -7,6 +7,7 @@ import org.apache.logging.log4j.Logger;
 import sinhblackgaming.mciw.modes.Mode;
 import sinhblackgaming.mciw.modes.ModeBlockBreakSilverFish;
 import sinhblackgaming.mciw.modes.ModeRainLava;
+import sinhblackgaming.mciw.modes.ModeRandomBLockLook;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -29,20 +30,13 @@ public class MoreMode implements IMoreMode {
             MODE_ALL,
     };
 
-    // register mode here
-    public ModeBlockBreakSilverFish modeBlockBreakSilverFish =
-            new ModeBlockBreakSilverFish(MODE_BLOCK_BREAK_SILVER_FISH);
-    public ModeRainLava modeRainLava = new ModeRainLava(MODE_RAIN_LAVA);
-
     public HashMap<String, Mode> modesMap = new HashMap<>();
-    public static int count = 0;
 
-    // register mode here
     public MoreMode(){
-        count += 1;
-        LOGGER.info("MoreMode instance count: " + count);
-        modesMap.put(MODE_BLOCK_BREAK_SILVER_FISH, modeBlockBreakSilverFish);
-        modesMap.put(MODE_RAIN_LAVA, modeRainLava);
+        // register mode here
+        modesMap.put(MODE_BLOCK_BREAK_SILVER_FISH, new ModeBlockBreakSilverFish(MODE_BLOCK_BREAK_SILVER_FISH));
+        modesMap.put(MODE_RAIN_LAVA, new ModeRainLava(MODE_RAIN_LAVA));
+        modesMap.put(MODE_RANDOM_BLOCK_LOOK, new ModeRandomBLockLook(MODE_RANDOM_BLOCK_LOOK));
     }
 
     @Override

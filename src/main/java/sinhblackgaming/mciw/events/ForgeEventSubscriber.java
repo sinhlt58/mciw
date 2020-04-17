@@ -19,6 +19,7 @@ import sinhblackgaming.mciw.capabilities.MoreModeProvider;
 import sinhblackgaming.mciw.commands.ModCommands;
 import sinhblackgaming.mciw.modes.ModeBlockBreakSilverFish;
 import sinhblackgaming.mciw.modes.ModeRainLava;
+import sinhblackgaming.mciw.modes.ModeRandomBLockLook;
 import sinhblackgaming.mciw.network.MoreModeSyncHandler;
 
 @Mod.EventBusSubscriber(modid = MCIWMod.MODID, bus = Mod.EventBusSubscriber.Bus.FORGE)
@@ -38,6 +39,8 @@ public class ForgeEventSubscriber {
         IMoreMode moreModeCap =  world.getCapability(MoreModeProvider.MORE_MODE_CAPABILITY).orElseThrow(RuntimeException::new);
         // update mode rain lava
         ((ModeRainLava)moreModeCap.getMode(MoreMode.MODE_RAIN_LAVA)).onPlayerTick(event);
+        // update mode random block look
+        ((ModeRandomBLockLook)moreModeCap.getMode(MoreMode.MODE_RANDOM_BLOCK_LOOK)).onPlayerTick(event);
     }
 
     @SubscribeEvent
