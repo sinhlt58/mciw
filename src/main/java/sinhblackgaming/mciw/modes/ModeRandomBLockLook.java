@@ -63,10 +63,18 @@ public class ModeRandomBLockLook extends Mode {
         boolean flag = !previousPos.equals(hitPos);
 
         BlockState block = world.getBlockState(hitPos);
-        if (flag && !block.getBlock().getRegistryName().equals("minecraft:air")){
-            int randI = (int)(Math.random()*blockStates.size() - 1);
-            BlockState bs = blockStates.get(randI);
-            world.setBlockState(previousPos, bs);
+        String name = block.getBlock().getRegistryName().toString();
+
+        if (flag && !name.equals("minecraft:air")){
+            String previousName = world.getBlockState(previousPos).getBlock().getRegistryName().toString();
+            // we don't change obsidian and end portal frame
+            // in order to go to the nether and the end
+            if (!previousName.equals("minecraft:obsidian") &&
+                !previousName.equals("minecraft:end_portal_frame")){
+                int randI = (int)(Math.random()*blockStates.size() - 1);
+                BlockState bs = blockStates.get(randI);
+                world.setBlockState(previousPos, bs);
+            }
             cap.setPreviousLookBlockPos(hitPos);
         }
     }
