@@ -1,6 +1,8 @@
 package sinhblackgaming.mciw.modes;
 
+import net.minecraft.block.AbstractCoralPlantBlock;
 import net.minecraft.block.BlockState;
+import net.minecraft.block.CoralBlock;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.math.*;
@@ -9,6 +11,8 @@ import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.registries.ForgeRegistries;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import sinhblackgaming.mciw.capabilities.IPlayerCapability;
+import sinhblackgaming.mciw.capabilities.PlayerCapabilityProvider;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -20,14 +24,15 @@ public class ModeRandomBLockLook extends Mode {
     public static Logger LOGGER = LogManager.getLogger();
 
     private ArrayList<BlockState> blockStates = new ArrayList<>();
-    BlockPos previousLookPos = new BlockPos(0, 1000, 0);
 
     public ModeRandomBLockLook(String name) {
         super(name);
         Set<String> s = new HashSet<>();
         ForgeRegistries.BLOCKS.getValues().stream().forEach(block -> {
             BlockState bs = block.getDefaultState();
-            if (bs.getMaterial() == Material.ROCK){
+            if (bs.getMaterial() == Material.ROCK &&
+                !(block instanceof AbstractCoralPlantBlock) &&
+                !(block instanceof CoralBlock)){
                 blockStates.add(block.getDefaultState());
             }
         });
@@ -51,12 +56,18 @@ public class ModeRandomBLockLook extends Mode {
         BlockRayTraceResult result = world.rayTraceBlocks(context);
         BlockPos hitPos = result.getPos();
 
-        BlockState block = world.getBlockState(hitPos);
+        // get player previous look block pos
+        IPlayerCapability cap = player.getCapability(PlayerCapabilityProvider.PLAYER_CAPABILITY).orElseThrow(RuntimeException::new);
+        BlockPos previousPos = cap.getPreviousLookBlockPos();
+        // check if look at different block
+        boolean flag = !previousPos.equals(hitPos);
 
-        if (!block.getBlock().getRegistryName().equals("minecraft:air")){
+        BlockState block = world.getBlockState(hitPos);
+        if (flag && !block.getBlock().getRegistryName().equals("minecraft:air")){
             int randI = (int)(Math.random()*blockStates.size() - 1);
             BlockState bs = blockStates.get(randI);
-            world.setBlockState(hitPos, bs);
+            world.setBlockState(previousPos, bs);
+            cap.setPreviousLookBlockPos(hitPos);
         }
     }
 }

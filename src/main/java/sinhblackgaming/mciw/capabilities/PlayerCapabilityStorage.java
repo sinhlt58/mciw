@@ -9,15 +9,16 @@ import org.apache.logging.log4j.Logger;
 
 import javax.annotation.Nullable;
 
-public class MoreModeStorage implements Capability.IStorage<IMoreMode> {
+public class PlayerCapabilityStorage implements Capability.IStorage<IPlayerCapability> {
+
     @Nullable
     @Override
-    public INBT writeNBT(Capability<IMoreMode> capability, IMoreMode instance, Direction side) {
+    public INBT writeNBT(Capability<IPlayerCapability> capability, IPlayerCapability instance, Direction side) {
         return instance.writeNBT();
     }
 
     @Override
-    public void readNBT(Capability<IMoreMode> capability, IMoreMode instance, Direction side, INBT nbt) {
+    public void readNBT(Capability<IPlayerCapability> capability, IPlayerCapability instance, Direction side, INBT nbt) {
         instance.readNBT((CompoundNBT) nbt);
     }
 }

@@ -1,5 +1,6 @@
 package sinhblackgaming.mciw.events;
 
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
@@ -16,6 +17,7 @@ import sinhblackgaming.mciw.MCIWMod;
 import sinhblackgaming.mciw.capabilities.IMoreMode;
 import sinhblackgaming.mciw.capabilities.MoreMode;
 import sinhblackgaming.mciw.capabilities.MoreModeProvider;
+import sinhblackgaming.mciw.capabilities.PlayerCapabilityProvider;
 import sinhblackgaming.mciw.commands.ModCommands;
 import sinhblackgaming.mciw.modes.ModeBlockBreakSilverFish;
 import sinhblackgaming.mciw.modes.ModeRainLava;
@@ -73,5 +75,16 @@ public class ForgeEventSubscriber {
         **/
         World world = event.getObject();
         event.addCapability(new ResourceLocation(MCIWMod.MODID, "moremodes"), new MoreModeProvider(world.getSeed()));
+    }
+
+    @SubscribeEvent
+    public static void onAttachCapabilitiesPlayer(AttachCapabilitiesEvent<Entity> event){
+        /**
+         * Add capabilities to players. We add for both client and server for later use in client.
+         *+*/
+        if (event.getObject() instanceof PlayerEntity){
+            LOGGER.info("inside onAttachCapabilitiesPlayer");
+            event.addCapability(new ResourceLocation(MCIWMod.MODID, "player_capability"), new PlayerCapabilityProvider());
+        }
     }
 }
