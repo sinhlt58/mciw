@@ -4,10 +4,7 @@ import net.minecraft.nbt.CompoundNBT;
 import net.minecraftforge.event.world.BlockEvent;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import sinhblackgaming.mciw.modes.Mode;
-import sinhblackgaming.mciw.modes.ModeBlockBreakSilverFish;
-import sinhblackgaming.mciw.modes.ModeRainLava;
-import sinhblackgaming.mciw.modes.ModeRandomBLockLook;
+import sinhblackgaming.mciw.modes.*;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -17,16 +14,23 @@ import java.util.Map;
 public class MoreMode implements IMoreMode {
     public static final Logger LOGGER = LogManager.getLogger();
     public static String MODE_ALL = "all";
+
     // register mode here
     public static String MODE_BLOCK_BREAK_SILVER_FISH = "block_break_silver_fish";
     public static String MODE_RAIN_LAVA = "rain_lava";
     public static String MODE_RANDOM_BLOCK_LOOK = "random_block_look";
+    public static String MODE_MOBS_ATTACK_PLAYERS = "mobs_attack_players";
+    public static String MODE_MOBS_ATTACK_ALL = "mobs_attack_all";
+    public static String MODE_MOBS_ATTACK_ALL_DIFF_KIND = "mobs_attack_all_diff_kind";
 
     // register mode here
     public static String[] USED_MODE_NAMES = {
             MODE_BLOCK_BREAK_SILVER_FISH,
             MODE_RAIN_LAVA,
             MODE_RANDOM_BLOCK_LOOK,
+            MODE_MOBS_ATTACK_PLAYERS,
+            MODE_MOBS_ATTACK_ALL,
+            MODE_MOBS_ATTACK_ALL_DIFF_KIND,
             MODE_ALL,
     };
 
@@ -37,6 +41,9 @@ public class MoreMode implements IMoreMode {
         modesMap.put(MODE_BLOCK_BREAK_SILVER_FISH, new ModeBlockBreakSilverFish(MODE_BLOCK_BREAK_SILVER_FISH));
         modesMap.put(MODE_RAIN_LAVA, new ModeRainLava(MODE_RAIN_LAVA));
         modesMap.put(MODE_RANDOM_BLOCK_LOOK, new ModeRandomBLockLook(MODE_RANDOM_BLOCK_LOOK));
+        modesMap.put(MODE_MOBS_ATTACK_PLAYERS, new ModeMobsAttackPlayers(MODE_MOBS_ATTACK_PLAYERS));
+        modesMap.put(MODE_MOBS_ATTACK_ALL, new ModeMobsAttackAll(MODE_MOBS_ATTACK_ALL));
+        modesMap.put(MODE_MOBS_ATTACK_ALL_DIFF_KIND, new ModeMobsAttackAllDiffKind(MODE_MOBS_ATTACK_ALL_DIFF_KIND));
     }
 
     @Override

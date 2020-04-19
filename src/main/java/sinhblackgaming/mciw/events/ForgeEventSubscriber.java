@@ -1,11 +1,16 @@
 package sinhblackgaming.mciw.events;
 
-import net.minecraft.entity.Entity;
+import net.minecraft.client.renderer.WorldRenderer;
+import net.minecraft.entity.*;
+import net.minecraft.entity.ai.goal.LeapAtTargetGoal;
+import net.minecraft.entity.ai.goal.MeleeAttackGoal;
+import net.minecraft.entity.ai.goal.NearestAttackableTargetGoal;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
 import net.minecraftforge.event.TickEvent;
+import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.event.world.BlockEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -19,9 +24,7 @@ import sinhblackgaming.mciw.capabilities.MoreMode;
 import sinhblackgaming.mciw.capabilities.MoreModeProvider;
 import sinhblackgaming.mciw.capabilities.PlayerCapabilityProvider;
 import sinhblackgaming.mciw.commands.ModCommands;
-import sinhblackgaming.mciw.modes.ModeBlockBreakSilverFish;
-import sinhblackgaming.mciw.modes.ModeRainLava;
-import sinhblackgaming.mciw.modes.ModeRandomBLockLook;
+import sinhblackgaming.mciw.modes.*;
 import sinhblackgaming.mciw.network.MoreModeSyncHandler;
 
 @Mod.EventBusSubscriber(modid = MCIWMod.MODID, bus = Mod.EventBusSubscriber.Bus.FORGE)
@@ -83,8 +86,19 @@ public class ForgeEventSubscriber {
          * Add capabilities to players. We add for both client and server for later use in client.
          *+*/
         if (event.getObject() instanceof PlayerEntity){
-            LOGGER.info("inside onAttachCapabilitiesPlayer");
             event.addCapability(new ResourceLocation(MCIWMod.MODID, "player_capability"), new PlayerCapabilityProvider());
         }
+    }
+
+    @SubscribeEvent
+    public static void onJoinWorld(EntityJoinWorldEvent event){
+        Entity entity = event.getEntity();
+        if (entity.world.isRemote) return;
+
+        IMoreMode cap = entity.world.getCapability(MoreModeProvider.MORE_MODE_CAPABILITY).orElseThrow(RuntimeException::new);
+
+        ((ModeMobsAttackPlayers)cap.getMode(MoreMode.MODE_MOBS_ATTACK_PLAYERS)).onJoinWorld(event);
+        ((ModeMobsAttackAll)cap.getMode(MoreMode.MODE_MOBS_ATTACK_ALL)).onJoinWorld(event);
+        ((ModeMobsAttackAllDiffKind)cap.getMode(MoreMode.MODE_MOBS_ATTACK_ALL_DIFF_KIND)).onJoinWorld(event);
     }
 }

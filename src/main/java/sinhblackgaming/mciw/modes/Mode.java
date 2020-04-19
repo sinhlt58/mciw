@@ -1,8 +1,6 @@
 package sinhblackgaming.mciw.modes;
 
 import net.minecraft.nbt.CompoundNBT;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import sinhblackgaming.mciw.MCIWMod;
 
 public class Mode {

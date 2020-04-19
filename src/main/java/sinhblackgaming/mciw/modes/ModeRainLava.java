@@ -2,12 +2,9 @@ package sinhblackgaming.mciw.modes;
 
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
-import net.minecraft.block.FireBlock;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.WorldRenderer;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.Direction;
-import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.Heightmap;
@@ -91,7 +88,7 @@ public class ModeRainLava extends Mode {
         }
 
         // spawn fireblocks on top of leaf and wood blocks
-        Stream<BlockPos> positions = playerPos.getAllInBox(playerPos.add(-fireBlockRange, -fireBlockRange, -fireBlockRange),
+        Stream<BlockPos> positions = BlockPos.getAllInBox(playerPos.add(-fireBlockRange, -fireBlockRange, -fireBlockRange),
                 playerPos.add(fireBlockRange, fireBlockRange, fireBlockRange));
 
         positions.forEach((BlockPos pos) -> {

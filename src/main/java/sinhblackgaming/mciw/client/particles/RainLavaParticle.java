@@ -20,7 +20,7 @@ public class RainLavaParticle extends RainParticle {
     }
     public static final Logger LOGGER = LogManager.getLogger();
 
-    // UPDATE FORGE ATTENTION: code in this function is from the parent function
+    // UPDATING FORGE ATTENTION: code in this function is from the parent function
     public void tick() {
         this.prevPosX = this.posX;
         this.prevPosY = this.posY;
