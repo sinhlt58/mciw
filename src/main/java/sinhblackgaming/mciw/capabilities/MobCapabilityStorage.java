@@ -5,19 +5,17 @@ import net.minecraft.nbt.INBT;
 import net.minecraft.util.Direction;
 import net.minecraftforge.common.capabilities.Capability;
 
-
 import javax.annotation.Nullable;
 
-public class PlayerCapabilityStorage implements Capability.IStorage<IPlayerCapability> {
-
+public class MobCapabilityStorage implements Capability.IStorage<IMobCapability> {
     @Nullable
     @Override
-    public INBT writeNBT(Capability<IPlayerCapability> capability, IPlayerCapability instance, Direction side) {
+    public INBT writeNBT(Capability<IMobCapability> capability, IMobCapability instance, Direction side) {
         return instance.writeNBT();
     }
 
     @Override
-    public void readNBT(Capability<IPlayerCapability> capability, IPlayerCapability instance, Direction side, INBT nbt) {
+    public void readNBT(Capability<IMobCapability> capability, IMobCapability instance, Direction side, INBT nbt) {
         instance.readNBT((CompoundNBT) nbt);
     }
 }

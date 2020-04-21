@@ -33,6 +33,7 @@ public class MCIWMod {
     private void setup(final FMLCommonSetupEvent event) {
         CapabilityManager.INSTANCE.register(IMoreMode.class, new MoreModeStorage(), MoreMode::new);
         CapabilityManager.INSTANCE.register(IPlayerCapability.class, new PlayerCapabilityStorage(), PlayerCapability::new);
+        CapabilityManager.INSTANCE.register(IMobCapability.class, new MobCapabilityStorage(), MobCapability::new);
         MoreModeSyncHandler.init();
     }
 }

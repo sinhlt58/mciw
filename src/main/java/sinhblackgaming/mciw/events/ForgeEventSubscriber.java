@@ -19,10 +19,7 @@ import net.minecraftforge.fml.event.server.FMLServerStartingEvent;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import sinhblackgaming.mciw.MCIWMod;
-import sinhblackgaming.mciw.capabilities.IMoreMode;
-import sinhblackgaming.mciw.capabilities.MoreMode;
-import sinhblackgaming.mciw.capabilities.MoreModeProvider;
-import sinhblackgaming.mciw.capabilities.PlayerCapabilityProvider;
+import sinhblackgaming.mciw.capabilities.*;
 import sinhblackgaming.mciw.commands.ModCommands;
 import sinhblackgaming.mciw.modes.*;
 import sinhblackgaming.mciw.network.MoreModeSyncHandler;
@@ -47,6 +44,7 @@ public class ForgeEventSubscriber {
         // update mode random block look
         ((ModeRandomBLockLook)moreModeCap.getMode(MoreMode.MODE_RANDOM_BLOCK_LOOK)).onPlayerTick(event);
     }
+
 
     @SubscribeEvent
     public static void onBlockBreak(BlockEvent.BreakEvent event) {
@@ -88,7 +86,12 @@ public class ForgeEventSubscriber {
         if (event.getObject() instanceof PlayerEntity){
             event.addCapability(new ResourceLocation(MCIWMod.MODID, "player_capability"), new PlayerCapabilityProvider());
         }
+
+        if (event.getObject() instanceof MobEntity){
+            event.addCapability(new ResourceLocation(MCIWMod.MODID, "mob_capability"), new MobCapabilityProvider());
+        }
     }
+
 
     @SubscribeEvent
     public static void onJoinWorld(EntityJoinWorldEvent event){
