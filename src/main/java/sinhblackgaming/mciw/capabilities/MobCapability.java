@@ -1,6 +1,7 @@
 package sinhblackgaming.mciw.capabilities;
 
 import net.minecraft.nbt.CompoundNBT;
+import sinhblackgaming.mciw.MCIWMod;
 
 public class MobCapability implements IMobCapability {
     public boolean attackAll = false;
@@ -8,17 +9,17 @@ public class MobCapability implements IMobCapability {
     public boolean attackPlayer = false;
 
     @Override
-    public boolean doesAttackAll() {
+    public boolean isAttackAll() {
         return attackAll;
     }
 
     @Override
-    public boolean doesAttackAllDiffKind() {
+    public boolean isAttackAllDiffKind() {
         return attackAllDiffKind;
     }
 
     @Override
-    public boolean doesAttackPlayer() {
+    public boolean isAttackPlayers() {
         return attackPlayer;
     }
 
@@ -39,11 +40,19 @@ public class MobCapability implements IMobCapability {
 
     @Override
     public CompoundNBT writeNBT() {
-        return null;
+        CompoundNBT tag = new CompoundNBT();
+
+        tag.putBoolean(MCIWMod.MODID + ".mobcap.attack_all", attackAll);
+        tag.putBoolean(MCIWMod.MODID + ".mobcap.attack_all_diff_kind", attackAllDiffKind);
+        tag.putBoolean(MCIWMod.MODID + ".mobcap.attack_player", attackPlayer);
+
+        return tag;
     }
 
     @Override
     public void readNBT(CompoundNBT nbt) {
-
+        attackAll = nbt.getBoolean(MCIWMod.MODID + ".mobcap.attack_all");
+        attackAllDiffKind = nbt.getBoolean(MCIWMod.MODID + ".mobcap.attack_all_diff_kind");
+        attackPlayer = nbt.getBoolean(MCIWMod.MODID + ".mobcap.attack_player");
     }
 }

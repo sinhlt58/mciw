@@ -3,9 +3,9 @@ package sinhblackgaming.mciw.capabilities;
 import net.minecraft.nbt.CompoundNBT;
 
 public interface IMobCapability {
-    boolean doesAttackAll();
-    boolean doesAttackAllDiffKind();
-    boolean doesAttackPlayer();
+    boolean isAttackAll();
+    boolean isAttackAllDiffKind();
+    boolean isAttackPlayers();
 
     void setAttackAll(boolean v);
     void setAttackAllDiffKind(boolean v);

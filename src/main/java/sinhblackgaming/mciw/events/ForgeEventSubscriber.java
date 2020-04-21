@@ -11,6 +11,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
+import net.minecraftforge.event.entity.living.LivingEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.event.world.BlockEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -43,6 +44,22 @@ public class ForgeEventSubscriber {
         ((ModeRainLava)moreModeCap.getMode(MoreMode.MODE_RAIN_LAVA)).onPlayerTick(event);
         // update mode random block look
         ((ModeRandomBLockLook)moreModeCap.getMode(MoreMode.MODE_RANDOM_BLOCK_LOOK)).onPlayerTick(event);
+    }
+
+    @SubscribeEvent
+    public static void onLivingUpdate(LivingEvent.LivingUpdateEvent event){
+        LivingEntity entity = event.getEntityLiving();
+        World world = entity.world;
+        if (world.isRemote) return;
+
+        if (entity instanceof CreatureEntity){
+            CreatureEntity mob = (CreatureEntity) entity;
+            IMoreMode cap = world.getCapability(MoreModeProvider.MORE_MODE_CAPABILITY).orElseThrow(RuntimeException::new);
+
+            ((ModeMobsAttackAll)cap.getMode(MoreMode.MODE_MOBS_ATTACK_ALL)).onLivingUpdate(mob);
+            ((ModeMobsAttackAllDiffKind)cap.getMode(MoreMode.MODE_MOBS_ATTACK_ALL_DIFF_KIND)).onLivingUpdate(mob);
+            ((ModeMobsAttackPlayers)cap.getMode(MoreMode.MODE_MOBS_ATTACK_PLAYERS)).onLivingUpdate(mob);
+        }
     }
 
 
@@ -87,7 +104,7 @@ public class ForgeEventSubscriber {
             event.addCapability(new ResourceLocation(MCIWMod.MODID, "player_capability"), new PlayerCapabilityProvider());
         }
 
-        if (event.getObject() instanceof MobEntity){
+        if (event.getObject() instanceof CreatureEntity){
             event.addCapability(new ResourceLocation(MCIWMod.MODID, "mob_capability"), new MobCapabilityProvider());
         }
     }
@@ -95,13 +112,6 @@ public class ForgeEventSubscriber {
 
     @SubscribeEvent
     public static void onJoinWorld(EntityJoinWorldEvent event){
-        Entity entity = event.getEntity();
-        if (entity.world.isRemote) return;
 
-        IMoreMode cap = entity.world.getCapability(MoreModeProvider.MORE_MODE_CAPABILITY).orElseThrow(RuntimeException::new);
-
-        ((ModeMobsAttackPlayers)cap.getMode(MoreMode.MODE_MOBS_ATTACK_PLAYERS)).onJoinWorld(event);
-        ((ModeMobsAttackAll)cap.getMode(MoreMode.MODE_MOBS_ATTACK_ALL)).onJoinWorld(event);
-        ((ModeMobsAttackAllDiffKind)cap.getMode(MoreMode.MODE_MOBS_ATTACK_ALL_DIFF_KIND)).onJoinWorld(event);
     }
 }
