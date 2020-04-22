@@ -1,6 +1,5 @@
 package sinhblackgaming.mciw.capabilities;
 
-import net.minecraft.entity.MobEntity;
 import net.minecraft.nbt.CompoundNBT;
 
 public interface IMobCapability {

@@ -17,7 +17,7 @@ public class GroupGoalAttackAllDiffKind extends GroupGoalAttack {
 
     @Override
     public void removeGoals(CreatureEntity mob) {
-        if (mob == this.goalOwner){
+        if (this.goalOwner == mob){
             super.removeGoals(mob);
             mob.targetSelector.removeGoal(this.nearestAllDiffKind);
         }

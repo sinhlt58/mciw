@@ -9,16 +9,16 @@ public class GroupGoalAttackAll extends GroupGoalAttack {
     @Override
     public void addGoals(CreatureEntity mob) {
         super.addGoals(mob);
-        if (nearestAll == null){
-            nearestAll = new NearestAttackableTargetGoal<>(mob, CreatureEntity.class, true);
+        if (this.nearestAll == null){
+            this.nearestAll = new NearestAttackableTargetGoal<>(mob, CreatureEntity.class, true);
         }
         mob.targetSelector.addGoal(2, this.nearestAll);
     }
 
     @Override
     public void removeGoals(CreatureEntity mob) {
-        super.removeGoals(mob);
         if (this.goalOwner == mob){
+            super.removeGoals(mob);
             mob.targetSelector.removeGoal(this.nearestAll);
         }
     }
