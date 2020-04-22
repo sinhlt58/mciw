@@ -4,55 +4,40 @@ import net.minecraft.nbt.CompoundNBT;
 import sinhblackgaming.mciw.MCIWMod;
 
 public class MobCapability implements IMobCapability {
-    public boolean attackAll = false;
-    public boolean attackAllDiffKind = false;
-    public boolean attackPlayer = false;
+    GroupGoalAttack groupGoalAttackPlayer = new GroupGoalAttack();
+    GroupGoalAttackAll groupGoalAttackAll = new GroupGoalAttackAll();
+    GroupGoalAttackAllDiffKind groupGoalAttackAllDiffKind = new GroupGoalAttackAllDiffKind();
 
     @Override
-    public boolean isAttackAll() {
-        return attackAll;
+    public GroupGoalAttack getGroupGoalAttackPlayer() {
+        return this.groupGoalAttackPlayer;
     }
 
     @Override
-    public boolean isAttackAllDiffKind() {
-        return attackAllDiffKind;
+    public GroupGoalAttackAll getGroupGoalAttackAll() {
+        return this.groupGoalAttackAll;
     }
 
     @Override
-    public boolean isAttackPlayers() {
-        return attackPlayer;
-    }
-
-    @Override
-    public void setAttackAll(boolean v) {
-        this.attackAll = v;
-    }
-
-    @Override
-    public void setAttackAllDiffKind(boolean v) {
-        this.attackAllDiffKind = v;
-    }
-
-    @Override
-    public void setAttackPlayer(boolean v) {
-        this.attackPlayer = v;
+    public GroupGoalAttackAllDiffKind getGroupGoalAttackAllDiffKind() {
+        return this.groupGoalAttackAllDiffKind;
     }
 
     @Override
     public CompoundNBT writeNBT() {
         CompoundNBT tag = new CompoundNBT();
 
-        tag.putBoolean(MCIWMod.MODID + ".mobcap.attack_all", attackAll);
-        tag.putBoolean(MCIWMod.MODID + ".mobcap.attack_all_diff_kind", attackAllDiffKind);
-        tag.putBoolean(MCIWMod.MODID + ".mobcap.attack_player", attackPlayer);
+        tag.putBoolean(MCIWMod.MODID + ".mobcap.attack_player", groupGoalAttackPlayer.isActive());
+        tag.putBoolean(MCIWMod.MODID + ".mobcap.attack_all", groupGoalAttackAll.isActive());
+        tag.putBoolean(MCIWMod.MODID + ".mobcap.attack_all_diff_kind", groupGoalAttackAllDiffKind.isActive());
 
         return tag;
     }
 
     @Override
     public void readNBT(CompoundNBT nbt) {
-        attackAll = nbt.getBoolean(MCIWMod.MODID + ".mobcap.attack_all");
-        attackAllDiffKind = nbt.getBoolean(MCIWMod.MODID + ".mobcap.attack_all_diff_kind");
-        attackPlayer = nbt.getBoolean(MCIWMod.MODID + ".mobcap.attack_player");
+        groupGoalAttackPlayer.setActive(nbt.getBoolean(MCIWMod.MODID + ".mobcap.attack_player"));
+        groupGoalAttackAll.setActive(nbt.getBoolean(MCIWMod.MODID + ".mobcap.attack_all"));
+        groupGoalAttackAllDiffKind.setActive(nbt.getBoolean(MCIWMod.MODID + ".mobcap.attack_all_diff_kind"));
     }
 }
