@@ -1,10 +1,6 @@
 package sinhblackgaming.mciw.events;
 
-import net.minecraft.client.renderer.WorldRenderer;
 import net.minecraft.entity.*;
-import net.minecraft.entity.ai.goal.LeapAtTargetGoal;
-import net.minecraft.entity.ai.goal.MeleeAttackGoal;
-import net.minecraft.entity.ai.goal.NearestAttackableTargetGoal;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
@@ -105,7 +101,11 @@ public class ForgeEventSubscriber {
         }
 
         if (event.getObject() instanceof CreatureEntity){
+            // For mobs attack modes
             event.addCapability(new ResourceLocation(MCIWMod.MODID, "mob_capability"), new MobCapabilityProvider());
+
+            // For scale mode
+            event.addCapability(new ResourceLocation(MCIWMod.MODID, "scale_capability"), new ScaleCapabilityProvider());
         }
     }
 

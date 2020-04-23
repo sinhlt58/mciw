@@ -34,6 +34,7 @@ public class MCIWMod {
         CapabilityManager.INSTANCE.register(IMoreMode.class, new MoreModeStorage(), MoreMode::new);
         CapabilityManager.INSTANCE.register(IPlayerCapability.class, new PlayerCapabilityStorage(), PlayerCapability::new);
         CapabilityManager.INSTANCE.register(IMobCapability.class, new MobCapabilityStorage(), MobCapability::new);
+        CapabilityManager.INSTANCE.register(IScaleCapability.class, new ScaleCapabilityStorage(), ScaleCapability::new);
         MoreModeSyncHandler.init();
     }
 }
