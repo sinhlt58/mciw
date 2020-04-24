@@ -50,11 +50,15 @@ public class ForgeEventSubscriber {
 
         if (entity instanceof CreatureEntity){
             CreatureEntity mob = (CreatureEntity) entity;
-            IMoreMode cap = world.getCapability(MoreModeProvider.MORE_MODE_CAPABILITY).orElseThrow(RuntimeException::new);
+            world.getCapability(MoreModeProvider.MORE_MODE_CAPABILITY).ifPresent(cap -> {
+                // update mobs attack modes
+                ((ModeMobsAttackAll)cap.getMode(MoreMode.MODE_MOBS_ATTACK_ALL)).onLivingUpdate(mob);
+                ((ModeMobsAttackAllDiffKind)cap.getMode(MoreMode.MODE_MOBS_ATTACK_ALL_DIFF_KIND)).onLivingUpdate(mob);
+                ((ModeMobsAttackPlayers)cap.getMode(MoreMode.MODE_MOBS_ATTACK_PLAYERS)).onLivingUpdate(mob);
 
-            ((ModeMobsAttackAll)cap.getMode(MoreMode.MODE_MOBS_ATTACK_ALL)).onLivingUpdate(mob);
-            ((ModeMobsAttackAllDiffKind)cap.getMode(MoreMode.MODE_MOBS_ATTACK_ALL_DIFF_KIND)).onLivingUpdate(mob);
-            ((ModeMobsAttackPlayers)cap.getMode(MoreMode.MODE_MOBS_ATTACK_PLAYERS)).onLivingUpdate(mob);
+                // update scale mode
+                ((ModeScaleMobRandom)cap.getMode(MoreMode.MODE_SCALE_MOB_RANDOM)).onLivingUpdate(mob);
+            });
         }
     }
 

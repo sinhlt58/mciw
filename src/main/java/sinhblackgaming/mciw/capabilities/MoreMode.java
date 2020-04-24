@@ -1,7 +1,6 @@
 package sinhblackgaming.mciw.capabilities;
 
 import net.minecraft.nbt.CompoundNBT;
-import net.minecraftforge.event.world.BlockEvent;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import sinhblackgaming.mciw.modes.*;
@@ -22,6 +21,7 @@ public class MoreMode implements IMoreMode {
     public static String MODE_MOBS_ATTACK_PLAYERS = "mobs_attack_players";
     public static String MODE_MOBS_ATTACK_ALL = "mobs_attack_all";
     public static String MODE_MOBS_ATTACK_ALL_DIFF_KIND = "mobs_attack_all_diff_kind";
+    public static String MODE_SCALE_MOB_RANDOM = "scale_mob_random";
 
     // register mode here
     public static String[] USED_MODE_NAMES = {
@@ -31,6 +31,7 @@ public class MoreMode implements IMoreMode {
             MODE_MOBS_ATTACK_PLAYERS,
             MODE_MOBS_ATTACK_ALL,
             MODE_MOBS_ATTACK_ALL_DIFF_KIND,
+            MODE_SCALE_MOB_RANDOM,
             MODE_ALL,
     };
 
@@ -44,6 +45,7 @@ public class MoreMode implements IMoreMode {
         modesMap.put(MODE_MOBS_ATTACK_PLAYERS, new ModeMobsAttackPlayers(MODE_MOBS_ATTACK_PLAYERS));
         modesMap.put(MODE_MOBS_ATTACK_ALL, new ModeMobsAttackAll(MODE_MOBS_ATTACK_ALL));
         modesMap.put(MODE_MOBS_ATTACK_ALL_DIFF_KIND, new ModeMobsAttackAllDiffKind(MODE_MOBS_ATTACK_ALL_DIFF_KIND));
+        modesMap.put(MODE_SCALE_MOB_RANDOM, new ModeScaleMobRandom(MODE_SCALE_MOB_RANDOM));
     }
 
     @Override
