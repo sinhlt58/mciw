@@ -8,6 +8,8 @@ import net.minecraft.network.PacketBuffer;
 import net.minecraftforge.fml.network.NetworkEvent;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import sinhblackgaming.mciw.capabilities.ScaleCapability;
+import sinhblackgaming.mciw.capabilities.ScaleCapabilityProvider;
 
 import java.util.function.Supplier;
 
@@ -48,7 +50,10 @@ public class MessageScaleMobSync {
             if (entity instanceof CreatureEntity){
                 CreatureEntity mob = (CreatureEntity) entity;
 
-                System.out.println("mob client id: " + mob.getEntityId());
+                mob.getCapability(ScaleCapabilityProvider.SCALE_CAPABILITY).ifPresent(cap -> {
+                    cap.setActivate(message.isActive);
+                    cap.setScaleFactor(message.scaleFactor);
+                });
             }
         });
 

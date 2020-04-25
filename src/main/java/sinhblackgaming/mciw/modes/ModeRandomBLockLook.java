@@ -27,7 +27,8 @@ public class ModeRandomBLockLook extends Mode {
 
     public ModeRandomBLockLook(String name) {
         super(name);
-        Set<String> s = new HashSet<>();
+
+        // get all registered blocks to random later
         ForgeRegistries.BLOCKS.getValues().stream().forEach(block -> {
             BlockState bs = block.getDefaultState();
             if (bs.getMaterial() == Material.ROCK &&

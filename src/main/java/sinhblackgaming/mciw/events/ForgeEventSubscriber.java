@@ -56,10 +56,17 @@ public class ForgeEventSubscriber {
                 ((ModeMobsAttackAll)cap.getMode(MoreMode.MODE_MOBS_ATTACK_ALL)).onLivingUpdate(mob);
                 ((ModeMobsAttackAllDiffKind)cap.getMode(MoreMode.MODE_MOBS_ATTACK_ALL_DIFF_KIND)).onLivingUpdate(mob);
                 ((ModeMobsAttackPlayers)cap.getMode(MoreMode.MODE_MOBS_ATTACK_PLAYERS)).onLivingUpdate(mob);
+            });
+        }
 
-                // update scale mode
+        if (entity instanceof MobEntity){
+
+            // update scale mode
+            MobEntity mob = (MobEntity) entity;
+            world.getCapability(MoreModeProvider.MORE_MODE_CAPABILITY).ifPresent(cap -> {
                 ((ModeScaleMobRandom)cap.getMode(MoreMode.MODE_SCALE_MOB_RANDOM)).onLivingUpdate(mob);
             });
+
         }
     }
 
