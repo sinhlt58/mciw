@@ -79,6 +79,7 @@ public class ClientForgeEventSubscriber {
                         // UPDATING FORGE ATTENTION: we use the func_227862_a_ function
                         // because using RenderSystem not working
                         event.getMatrixStack().func_227862_a_(scaleFactor, scaleFactor, scaleFactor);
+//                        System.out.println("render box: " + mob.getRenderBoundingBox());
 //                        RenderSystem.pushMatrix();
 //                        RenderSystem.translatef(0f, 1.5f - 1.5f*2.5f, 0f);
 //                        RenderSystem.scalef(2.5f, 2.5f, 2.5f);
