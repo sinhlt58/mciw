@@ -6,6 +6,7 @@ import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 import sinhblackgaming.mciw.capabilities.ScaleCapabilityProvider;
+import sinhblackgaming.mciw.network.MoreModeSyncHandler;
 
 public class ModeScaleMobRandom extends Mode {
     public ModeScaleMobRandom(String name) {
@@ -18,9 +19,12 @@ public class ModeScaleMobRandom extends Mode {
                 if (!cap.isActivate()){
                     cap.setScaleFactor(randomScaleFactor());
                     cap.setActivate(true);
-                    System.out.println("inside !cap.isActivate()");
+
+                    // send to clients
+                    MoreModeSyncHandler.sendScaleMobRandomToClients(mob.getEntityId(), cap);
+                    System.out.println("mob server id: " + mob.getEntityId());
                 }
-                // send to clients
+
 
                 // update mob axis aligned bounding box
                 Vec3d pos = mob.getPositionVec();
@@ -30,13 +34,14 @@ public class ModeScaleMobRandom extends Mode {
                 AxisAlignedBB bb = new AxisAlignedBB(pos.getX() - f, pos.getY(), pos.getZ() - f,
                         pos.getX() + f, pos.getY() + h, pos.getZ() + f);
                 mob.setBoundingBox(bb);
-                System.out.println("set bounding box");
             }
             if (!this.isRunning() && cap.isActivate()) {
                 cap.setScaleFactor(1.0D);
                 cap.setActivate(false);
 
                 // sent to clients
+                MoreModeSyncHandler.sendScaleMobRandomToClients(mob.getEntityId(), cap);
+                System.out.println("mob server id: " + mob.getEntityId());
             }
         });
     }

@@ -9,7 +9,6 @@ import net.minecraft.command.Commands;
 import net.minecraft.command.ISuggestionProvider;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
-import net.minecraft.world.server.ServerWorld;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import sinhblackgaming.mciw.capabilities.IMoreMode;
@@ -60,7 +59,7 @@ public class ModCommands {
         world.getCapability(MoreModeProvider.MORE_MODE_CAPABILITY).ifPresent((IMoreMode capMoreMode) -> {
             updateMode(capMoreMode, source, modeCommand, mode);
             // send to clients
-            MoreModeSyncHandler.sendNecessaryDataToClients(capMoreMode);
+            MoreModeSyncHandler.sendMoreModeDataToClients(capMoreMode);
         });
         return 1;
     }

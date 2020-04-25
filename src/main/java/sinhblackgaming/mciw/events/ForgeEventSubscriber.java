@@ -4,6 +4,7 @@ import net.minecraft.entity.*;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
+import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
@@ -71,7 +72,7 @@ public class ForgeEventSubscriber {
             ModeBlockBreakSilverFish mode = capMoreMode.getMode(MoreMode.MODE_BLOCK_BREAK_SILVER_FISH);
             mode.onBlockBreak(event);
             // send to clients
-            MoreModeSyncHandler.sendNecessaryDataToClients(capMoreMode);
+            MoreModeSyncHandler.sendMoreModeDataToClients(capMoreMode);
         });
     }
 
@@ -81,7 +82,16 @@ public class ForgeEventSubscriber {
         if (world.isRemote()) return;
         world.getCapability(MoreModeProvider.MORE_MODE_CAPABILITY).ifPresent((IMoreMode capMoreMode) -> {
             // send to clients
-            MoreModeSyncHandler.sendNecessaryDataToClients(capMoreMode);
+            MoreModeSyncHandler.sendMoreModeDataToClients(capMoreMode);
+
+            // send all creature scale data to clients for rendering
+            ((ServerWorld) world).getEntities().forEach((entity) -> {
+                if (entity instanceof CreatureEntity){
+                    entity.getCapability(ScaleCapabilityProvider.SCALE_CAPABILITY).ifPresent(cap -> {
+                        MoreModeSyncHandler.sendScaleMobRandomToClients(entity.getEntityId(), cap);
+                    });
+                }
+            });
         });
     }
 
