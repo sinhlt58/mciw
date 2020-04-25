@@ -1,11 +1,6 @@
 package sinhblackgaming.mciw.modes;
 
-import net.minecraft.entity.CreatureEntity;
-import net.minecraft.entity.EntitySize;
 import net.minecraft.entity.MobEntity;
-import net.minecraft.util.math.AxisAlignedBB;
-import net.minecraft.util.math.MathHelper;
-import net.minecraft.util.math.Vec3d;
 import sinhblackgaming.mciw.capabilities.ScaleCapabilityProvider;
 import sinhblackgaming.mciw.network.MoreModeSyncHandler;
 
