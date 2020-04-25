@@ -1,10 +1,11 @@
 package sinhblackgaming.mciw.capabilities;
 
 import net.minecraft.nbt.CompoundNBT;
+import sinhblackgaming.mciw.MCIWMod;
 
 public class ScaleCapability implements IScaleCapability {
     private boolean isActivate = false;
-    private double scaleFactor = 1.0D;
+    private double scaleFactor = 1D;
 
     @Override
     public double getScaleFactor() {
@@ -28,11 +29,19 @@ public class ScaleCapability implements IScaleCapability {
 
     @Override
     public CompoundNBT writeNBT() {
-        return new CompoundNBT();
+        CompoundNBT tag = new CompoundNBT();
+
+        tag.putDouble(MCIWMod.MODID + ".scale_cap." + "factor", scaleFactor);
+
+        return tag;
     }
 
     @Override
     public void readNBT(CompoundNBT nbt) {
-
+        double v = nbt.getDouble(MCIWMod.MODID + ".scale_cap." + "factor");
+        if (v == 0){
+            v = 1;
+        }
+        this.setScaleFactor(v);
     }
 }

@@ -18,7 +18,13 @@ public class ModeScaleMobRandom extends Mode {
         mob.getCapability(ScaleCapabilityProvider.SCALE_CAPABILITY).ifPresent(cap -> {
             if (this.isRunning()){
                 if (!cap.isActivate()){
-                    cap.setScaleFactor(randomScaleFactor());
+                    double oldFactor = cap.getScaleFactor();
+                    // only set scale factor when oldFactor is 1
+                    // scale factor is different than 1
+                    // which means we already random for this mob
+                    if (oldFactor == 1D){
+                        cap.setScaleFactor(randomScaleFactor());
+                    }
                     cap.setActivate(true);
                     // send to clients
                     MoreModeSyncHandler.sendScaleMobRandomToClients(mob.getEntityId(), cap);
@@ -34,7 +40,7 @@ public class ModeScaleMobRandom extends Mode {
                 mob.setBoundingBox(bb);
             }
             if (!this.isRunning() && cap.isActivate()) {
-                cap.setScaleFactor(1.0D);
+                cap.setScaleFactor(1D);
                 cap.setActivate(false);
 
                 // sent to clients
