@@ -22,6 +22,7 @@ public class MoreMode implements IMoreMode {
     public static String MODE_MOBS_ATTACK_ALL = "mobs_attack_all";
     public static String MODE_MOBS_ATTACK_ALL_DIFF_KIND = "mobs_attack_all_diff_kind";
     public static String MODE_SCALE_MOB_RANDOM = "scale_mob_random";
+    public static String MODE_BLOCK_BREAK_MULTIPLE = "block_break_multiple";
 
     // register mode here
     public static String[] USED_MODE_NAMES = {
@@ -32,6 +33,7 @@ public class MoreMode implements IMoreMode {
             MODE_MOBS_ATTACK_ALL,
             MODE_MOBS_ATTACK_ALL_DIFF_KIND,
             MODE_SCALE_MOB_RANDOM,
+            MODE_BLOCK_BREAK_MULTIPLE,
             MODE_ALL,
     };
 
@@ -46,6 +48,7 @@ public class MoreMode implements IMoreMode {
         modesMap.put(MODE_MOBS_ATTACK_ALL, new ModeMobsAttackAll(MODE_MOBS_ATTACK_ALL));
         modesMap.put(MODE_MOBS_ATTACK_ALL_DIFF_KIND, new ModeMobsAttackAllDiffKind(MODE_MOBS_ATTACK_ALL_DIFF_KIND));
         modesMap.put(MODE_SCALE_MOB_RANDOM, new ModeScaleMobRandom(MODE_SCALE_MOB_RANDOM));
+        modesMap.put(MODE_BLOCK_BREAK_MULTIPLE, new ModeBlockBreakMultiple(MODE_BLOCK_BREAK_MULTIPLE));
     }
 
     @Override

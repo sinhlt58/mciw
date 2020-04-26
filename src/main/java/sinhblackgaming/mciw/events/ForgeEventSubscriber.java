@@ -77,8 +77,14 @@ public class ForgeEventSubscriber {
         World world = event.getPlayer().world;
         if (world.isRemote()) return;
         world.getCapability(MoreModeProvider.MORE_MODE_CAPABILITY).ifPresent((IMoreMode capMoreMode) -> {
+            // update block break silver fish mode
             ModeBlockBreakSilverFish mode = capMoreMode.getMode(MoreMode.MODE_BLOCK_BREAK_SILVER_FISH);
             mode.onBlockBreak(event);
+
+            // update block break multiple mode
+            ModeBlockBreakMultiple mode2 = capMoreMode.getMode(MoreMode.MODE_BLOCK_BREAK_MULTIPLE);
+            mode2.onBlockBreak(event);
+
             // send to clients
             MoreModeSyncHandler.sendMoreModeDataToClients(capMoreMode);
         });
