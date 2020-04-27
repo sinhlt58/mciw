@@ -15,8 +15,6 @@ import sinhblackgaming.mciw.capabilities.IPlayerCapability;
 import sinhblackgaming.mciw.capabilities.PlayerCapabilityProvider;
 
 import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.Set;
 
 public class ModeRandomBLockLook extends Mode {
     public static double LOOK_DISTANCE = 30D;
