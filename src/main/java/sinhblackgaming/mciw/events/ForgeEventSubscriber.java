@@ -85,6 +85,10 @@ public class ForgeEventSubscriber {
             ModeBlockBreakMultiple mode2 = capMoreMode.getMode(MoreMode.MODE_BLOCK_BREAK_MULTIPLE);
             mode2.onBlockBreak(event);
 
+            // update block break switch
+            ModeBlockBreakSwitch mode3 = capMoreMode.getMode(MoreMode.MODE_BLOCK_BREAK_SWITCH);
+            mode3.onBlockBreak(event);
+
             // send to clients
             MoreModeSyncHandler.sendMoreModeDataToClients(capMoreMode);
         });
