@@ -24,6 +24,7 @@ public class MoreMode implements IMoreMode {
     public static String MODE_SCALE_MOB_RANDOM = "scale_mob_random";
     public static String MODE_BLOCK_BREAK_MULTIPLE = "block_break_multiple";
     public static String MODE_BLOCK_BREAK_SWITCH = "block_break_switch";
+    public static String MODE_BLOCK_BREAK_RANDOM_DROP = "block_break_random_drop";
 
     // register mode here
     public static String[] USED_MODE_NAMES = {
@@ -36,6 +37,7 @@ public class MoreMode implements IMoreMode {
             MODE_SCALE_MOB_RANDOM,
             MODE_BLOCK_BREAK_MULTIPLE,
             MODE_BLOCK_BREAK_SWITCH,
+            MODE_BLOCK_BREAK_RANDOM_DROP,
             MODE_ALL,
     };
 
@@ -52,6 +54,7 @@ public class MoreMode implements IMoreMode {
         modesMap.put(MODE_SCALE_MOB_RANDOM, new ModeScaleMobRandom(MODE_SCALE_MOB_RANDOM));
         modesMap.put(MODE_BLOCK_BREAK_MULTIPLE, new ModeBlockBreakMultiple(MODE_BLOCK_BREAK_MULTIPLE));
         modesMap.put(MODE_BLOCK_BREAK_SWITCH, new ModeBlockBreakSwitch(MODE_BLOCK_BREAK_SWITCH));
+        modesMap.put(MODE_BLOCK_BREAK_RANDOM_DROP, new ModeBlockBreakRandomDrop(MODE_BLOCK_BREAK_RANDOM_DROP));
     }
 
     @Override

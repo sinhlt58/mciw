@@ -29,7 +29,7 @@ public class ModeRandomBLockLook extends Mode {
         super(name);
 
         // get all registered blocks to random later
-        ForgeRegistries.BLOCKS.getValues().stream().forEach(block -> {
+        ForgeRegistries.BLOCKS.getValues().forEach(block -> {
             BlockState bs = block.getDefaultState();
             if (bs.getMaterial() == Material.ROCK &&
                 !(block instanceof AbstractCoralPlantBlock) &&

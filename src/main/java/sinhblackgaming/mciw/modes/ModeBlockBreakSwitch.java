@@ -4,11 +4,7 @@ import net.minecraft.block.AbstractCoralPlantBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.CoralBlock;
-import net.minecraft.block.material.Material;
-import net.minecraft.item.BlockItem;
-import net.minecraft.item.Item;
 import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.event.world.BlockEvent;
@@ -29,7 +25,7 @@ public class ModeBlockBreakSwitch extends Mode {
         super(name);
 
         // get all registered blocks to random later
-        ForgeRegistries.BLOCKS.getValues().stream().forEach(block -> {
+        ForgeRegistries.BLOCKS.getValues().forEach(block -> {
             if (!(block instanceof AbstractCoralPlantBlock) && !(block instanceof CoralBlock)){
                 String regName = block.getRegistryName().toString();
                 blockStates.add(block.getDefaultState());
