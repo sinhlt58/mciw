@@ -84,6 +84,8 @@ public class ForgeEventSubscriber {
             world.getCapability(MoreModeProvider.MORE_MODE_CAPABILITY).ifPresent(cap -> {
                 // update mode mobs die explosion
                 ((ModeMobsDieExplosion)cap.getMode(MoreMode.MODE_MOBS_DIE_EXPLOSION)).onMobDeath(mob);
+                // update mode mobs die multiply
+                ((ModeMobsDieMultiply)cap.getMode(MoreMode.MODE_MOBS_DIE_MULTIPLY)).onMobDeath(mob);
             });
         }
     }

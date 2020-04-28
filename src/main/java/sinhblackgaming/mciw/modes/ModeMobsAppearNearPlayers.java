@@ -7,6 +7,7 @@ import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.registries.ForgeRegistries;
+import sinhblackgaming.mciw.utils.Utils;
 
 import java.util.ArrayList;
 
@@ -47,7 +48,7 @@ public class ModeMobsAppearNearPlayers extends Mode {
         for (int i=0; i<n; i++){
             int d = (int)(Math.random()*(maxDistance - minDistance)) + minDistance;
             // calculate spawn position
-            Vec3d spawnPos = pos.add(randomDir()*d, 1,randomDir()*d);
+            Vec3d spawnPos = pos.add(Utils.randomDir(0.5f)*d, 1,Utils.randomDir(0.5f)*d);
             // spawn the entity
             Entity entity = mobs.get(randomIndex).create(world);
             if (entity != null){
@@ -56,9 +57,5 @@ public class ModeMobsAppearNearPlayers extends Mode {
             }
         }
 
-    }
-
-    public int randomDir(){
-        return Math.random() < 0.5 ? 1 : -1;
     }
 }
