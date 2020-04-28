@@ -26,6 +26,7 @@ public class MoreMode implements IMoreMode {
     public static String MODE_BLOCK_BREAK_SWITCH = "block_break_switch";
     public static String MODE_BLOCK_BREAK_RANDOM_DROP = "block_break_random_drop";
     public static String MODE_BLOCK_BREAK_RANDOM_SPAWN_MOB = "block_break_random_spawn_mob";
+    public static String MODE_MOBS_APPEAR_NEAR_PLAYERS = "mobs_appear_near_players";
 
     // register mode here
     public static String[] USED_MODE_NAMES = {
@@ -40,6 +41,7 @@ public class MoreMode implements IMoreMode {
             MODE_BLOCK_BREAK_SWITCH,
             MODE_BLOCK_BREAK_RANDOM_DROP,
             MODE_BLOCK_BREAK_RANDOM_SPAWN_MOB,
+            MODE_MOBS_APPEAR_NEAR_PLAYERS,
             MODE_ALL,
     };
 
@@ -58,6 +60,7 @@ public class MoreMode implements IMoreMode {
         modesMap.put(MODE_BLOCK_BREAK_SWITCH, new ModeBlockBreakSwitch(MODE_BLOCK_BREAK_SWITCH));
         modesMap.put(MODE_BLOCK_BREAK_RANDOM_DROP, new ModeBlockBreakRandomDrop(MODE_BLOCK_BREAK_RANDOM_DROP));
         modesMap.put(MODE_BLOCK_BREAK_RANDOM_SPAWN_MOB, new ModeBlockBreakRandomSpawnMob(MODE_BLOCK_BREAK_RANDOM_SPAWN_MOB));
+        modesMap.put(MODE_MOBS_APPEAR_NEAR_PLAYERS, new ModeMobsAppearNearPlayers(MODE_MOBS_APPEAR_NEAR_PLAYERS));
     }
 
     @Override

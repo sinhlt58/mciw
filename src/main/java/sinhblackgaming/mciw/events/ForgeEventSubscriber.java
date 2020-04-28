@@ -42,6 +42,8 @@ public class ForgeEventSubscriber {
         ((ModeRainLava)moreModeCap.getMode(MoreMode.MODE_RAIN_LAVA)).onPlayerTick(event);
         // update mode random block look
         ((ModeRandomBLockLook)moreModeCap.getMode(MoreMode.MODE_RANDOM_BLOCK_LOOK)).onPlayerTick(event);
+        // update mode mobs appear near player
+        ((ModeMobsAppearNearPlayers)moreModeCap.getMode(MoreMode.MODE_MOBS_APPEAR_NEAR_PLAYERS)).onPlayerTick(event);
     }
 
     @SubscribeEvent

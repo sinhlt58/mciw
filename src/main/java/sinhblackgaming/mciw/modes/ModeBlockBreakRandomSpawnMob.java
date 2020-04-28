@@ -15,7 +15,7 @@ public class ModeBlockBreakRandomSpawnMob extends Mode {
     public ModeBlockBreakRandomSpawnMob(String name) {
         super(name);
 
-        // get all registered blocks to random later
+        // get all registered entities to random later
         mobs.addAll(ForgeRegistries.ENTITIES.getValues());
     }
 
@@ -29,7 +29,9 @@ public class ModeBlockBreakRandomSpawnMob extends Mode {
         int randIndex = (int)(Math.random() * (this.mobs.size() - 1));
 
         Entity entity = mobs.get(randIndex).create(world);
-        entity.setPosition(pos.getX(), pos.getY(), pos.getZ());
-        world.addEntity(entity);
+        if (entity != null){
+            entity.setPosition(pos.getX(), pos.getY(), pos.getZ());
+            world.addEntity(entity);
+        }
     }
 }
