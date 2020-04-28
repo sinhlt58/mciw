@@ -89,8 +89,13 @@ public class ForgeEventSubscriber {
             ModeBlockBreakSwitch mode3 = capMoreMode.getMode(MoreMode.MODE_BLOCK_BREAK_SWITCH);
             mode3.onBlockBreak(event);
 
+            // update block break random drop
             ModeBlockBreakRandomDrop mode4 = capMoreMode.getMode(MoreMode.MODE_BLOCK_BREAK_RANDOM_DROP);
             mode4.onBlockBreak(event);
+
+            // update block break random spawn mob
+            ModeBlockBreakRandomSpawnMob mode5 = capMoreMode.getMode(MoreMode.MODE_BLOCK_BREAK_RANDOM_SPAWN_MOB);
+            mode5.onBlockBreak(event);
 
             // send to clients
             MoreModeSyncHandler.sendMoreModeDataToClients(capMoreMode);
