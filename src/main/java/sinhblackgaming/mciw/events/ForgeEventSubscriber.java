@@ -8,6 +8,7 @@ import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
+import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.event.entity.living.LivingEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.event.world.BlockEvent;
@@ -63,7 +64,6 @@ public class ForgeEventSubscriber {
         }
 
         if (entity instanceof MobEntity){
-
             // update scale mode
             MobEntity mob = (MobEntity) entity;
             world.getCapability(MoreModeProvider.MORE_MODE_CAPABILITY).ifPresent(cap -> {
@@ -73,6 +73,20 @@ public class ForgeEventSubscriber {
         }
     }
 
+    @SubscribeEvent
+    public static void onLivingDeathEvent(LivingDeathEvent event){
+        LivingEntity entity = event.getEntityLiving();
+        World world = entity.world;
+        if (world.isRemote) return;
+
+        if (entity instanceof MobEntity){
+            MobEntity mob = (MobEntity) entity;
+            world.getCapability(MoreModeProvider.MORE_MODE_CAPABILITY).ifPresent(cap -> {
+                // update mode mobs die explosion
+                ((ModeMobsDieExplosion)cap.getMode(MoreMode.MODE_MOBS_DIE_EXPLOSION)).onMobDeath(mob);
+            });
+        }
+    }
 
     @SubscribeEvent
     public static void onBlockBreak(BlockEvent.BreakEvent event) {
