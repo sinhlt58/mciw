@@ -3,6 +3,8 @@ package sinhblackgaming.mciw.modes;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntityType;
+import net.minecraft.entity.monster.MonsterEntity;
+import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import net.minecraftforge.event.TickEvent;
@@ -12,10 +14,12 @@ import sinhblackgaming.mciw.utils.Utils;
 import java.util.ArrayList;
 
 public class ModeMobsAppearNearPlayers extends Mode {
-    private int rate = 100; // ticks
+    private int rate = 1*60*20; // ticks
     private int maxNum = 5;
     private int minDistance = 2;
     private int maxDistance = 10;
+    private float radiusBound = 20f;
+    private int maxNearMob = 100;
 
     private ArrayList<EntityType<?>> mobs = new ArrayList<>();
 
@@ -37,13 +41,24 @@ public class ModeMobsAppearNearPlayers extends Mode {
         if (rate-- > 0) return;
         rate = 100;
 
+        Vec3d pos = event.player.getPositionVec();
+
+        // calculate bounding box around the player
+        AxisAlignedBB bb = new AxisAlignedBB(pos.getX() - radiusBound, pos.getY() - 5, pos.getZ() - radiusBound,
+                pos.getX() + radiusBound, pos.getY() + 20, pos.getZ() + radiusBound);
+        int m = world.getEntitiesWithinAABB(MonsterEntity.class, bb).size();
+
+        // not spawn if there are too many mobs
+        if (m > maxNearMob){
+            return;
+        }
+
         // choose number of monster to spawn
         int n = (int)(Math.random() * maxNum);
 
         // random monster type index
         int randomIndex = (int)(Math.random()*(mobs.size() - 1));
 
-        Vec3d pos = event.player.getPositionVec();
         // for each monster choose random distance
         for (int i=0; i<n; i++){
             int d = (int)(Math.random()*(maxDistance - minDistance)) + minDistance;
