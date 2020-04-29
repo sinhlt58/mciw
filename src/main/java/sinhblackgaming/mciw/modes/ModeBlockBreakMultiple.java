@@ -2,7 +2,9 @@ package sinhblackgaming.mciw.modes;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
+import net.minecraft.entity.MobEntity;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.event.world.BlockEvent;
@@ -17,10 +19,13 @@ public class ModeBlockBreakMultiple extends Mode {
 
         if (world.isRemote || !this.isRunning()) return;
 
-        int n = getRandomDrop();
-
-        BlockState state = event.getState();
+        // get position
         BlockPos pos = event.getPos();
+
+        // get random number of multiplied mobs
+        int n = getRandomDrop();
+        BlockState state = event.getState();
+        // get tile entity
         TileEntity te = world.getTileEntity(pos);
 
         // spawn drops
