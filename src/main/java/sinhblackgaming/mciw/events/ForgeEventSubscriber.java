@@ -1,15 +1,23 @@
 package sinhblackgaming.mciw.events;
 
+import net.minecraft.client.renderer.WorldRenderer;
 import net.minecraft.entity.*;
+import net.minecraft.entity.passive.CowEntity;
+import net.minecraft.entity.passive.SheepEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.projectile.EggEntity;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
+import net.minecraftforge.event.entity.ProjectileImpactEvent;
+import net.minecraftforge.event.entity.living.BabyEntitySpawnEvent;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.event.entity.living.LivingEvent;
+import net.minecraftforge.event.entity.living.LivingSpawnEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.event.world.BlockEvent;
 import net.minecraftforge.event.world.GetCollisionBoxesEvent;
@@ -170,5 +178,39 @@ public class ForgeEventSubscriber {
     @SubscribeEvent
     public static void onJoinWorld(EntityJoinWorldEvent event){
 
+    }
+
+    @SubscribeEvent
+    public static void onProjectileImpact(ProjectileImpactEvent event){
+        Entity entity = event.getEntity();
+
+        if (entity.world.isRemote) return;
+
+        if (entity instanceof EggEntity){
+            event.setCanceled(true);
+            if (Math.random() < 0.2){
+                World world = entity.world;
+                Vec3d pos = entity.getPositionVec();
+                CowEntity cow = EntityType.COW.create(world);
+                cow.setGrowingAge(-24000);
+                cow.setPosition(pos.getX(), pos.getY() + 1, pos.getZ());
+                world.addEntity(cow);
+            }
+        }
+    }
+
+    @SubscribeEvent
+    public static void onBabyEntitySpawn(BabyEntitySpawnEvent event){
+        Entity parent = event.getParentA();
+        World world = parent.world;
+
+        if (world.isRemote) return;
+
+        if (parent instanceof CowEntity){
+            Vec3d pos = event.getChild().getPositionVec();
+            SheepEntity sheep = EntityType.SHEEP.create(world);
+            sheep.setPosition(pos.getX(), pos.getY(), pos.getZ());
+            event.setChild(sheep);
+        }
     }
 }
