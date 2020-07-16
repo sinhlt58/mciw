@@ -5,12 +5,14 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
+import net.minecraftforge.common.extensions.IForgeDimension;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.event.entity.living.LivingEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
+import net.minecraftforge.event.entity.player.PlayerSleepInBedEvent;
 import net.minecraftforge.event.world.BlockEvent;
 import net.minecraftforge.event.world.GetCollisionBoxesEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -169,6 +171,11 @@ public class ForgeEventSubscriber {
 
     @SubscribeEvent
     public static void onJoinWorld(EntityJoinWorldEvent event){
+
+    }
+
+    @SubscribeEvent
+    public static void onPlayerSleepInBedEvent(PlayerSleepInBedEvent event){
 
     }
 }

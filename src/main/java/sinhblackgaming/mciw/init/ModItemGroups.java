@@ -8,7 +8,7 @@ import java.util.function.Supplier;
 
 public class ModItemGroups {
     public static final ItemGroup MOD_ITEM_GROUP = new ModItemGroup(
-            MCIWMod.MODID, () -> new ItemStack(ModItems.EXAMPLE_ITEM)
+            MCIWMod.MODID, () -> new ItemStack(ModItems.EXAMPLE_ITEM.get())
     );
 
     public static class ModItemGroup extends ItemGroup {
