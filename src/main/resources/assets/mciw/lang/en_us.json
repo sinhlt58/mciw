@@ -1,5 +1,6 @@
 {
   "item.mciw.example_item": "Example Item",
+  "block.mciw.example_block": "Example Block",
   "block.mciw.nether_bed": "Red Bed",
   "itemGroup.mciw": "MCIW Mod",
   "commands.sinhblack.start": "Started mode: %s",
