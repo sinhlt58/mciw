@@ -9,10 +9,7 @@ import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import sinhblackgaming.mciw.capabilities.*;
-import sinhblackgaming.mciw.init.ModBlocks;
-import sinhblackgaming.mciw.init.ModItems;
-import sinhblackgaming.mciw.init.ModParticleTypes;
-import sinhblackgaming.mciw.init.ModTileEntityTypes;
+import sinhblackgaming.mciw.init.*;
 import sinhblackgaming.mciw.network.MoreModeSyncHandler;
 
 @Mod(MCIWMod.MODID)
@@ -31,6 +28,7 @@ public class MCIWMod {
         ModBlocks.BLOCKS.register(modBus);
         ModItems.ITEMS.register(modBus);
         ModTileEntityTypes.TILE_ENTITY_TYPES.register(modBus);
+        ModEntityTypes.ENTITY_TYPES.register(modBus);
     }
 
     private void clientSetUp(final FMLClientSetupEvent event) {

@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "III",
+    "IiI",
+    "III"
+  ],
+  "key": {
+    "I": {
+      "item": "mciw:cu_xa"
+    },
+    "i": {
+      "item": "mciw:chan_gio_song"
+    }
+  },
+  "result": {
+    "item": "mciw:chan_gio_uop"
+  }
+}

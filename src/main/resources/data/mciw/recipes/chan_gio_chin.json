@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:campfire_cooking",
+  "ingredient": {
+    "item": "mciw:chan_gio_uop"
+  },
+  "result": "mciw:chan_gio_chin",
+  "experience": 5.0,
+  "cookingtime": 100
+}

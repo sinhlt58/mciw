@@ -1,4 +1,4 @@
-package sinhblackgaming.mciw.entity.ai.goal;
+package sinhblackgaming.mciw.entities.ai.goal;
 
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.MobEntity;

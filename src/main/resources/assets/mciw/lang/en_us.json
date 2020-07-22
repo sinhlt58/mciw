@@ -1,5 +1,9 @@
 {
   "item.mciw.example_item": "Example Item",
+  "item.mciw.chan_gio_song": "Chân giò sống",
+  "item.mciw.chan_gio_uop": "Chân giò ướp",
+  "item.mciw.chan_gio_chin": "Chân giò chín giả cầy",
+  "item.mciw.cu_xa": "Củ xả",
   "block.mciw.example_block": "Example Block",
   "block.mciw.nether_bed": "Red Bed",
   "itemGroup.mciw": "MCIW Mod",

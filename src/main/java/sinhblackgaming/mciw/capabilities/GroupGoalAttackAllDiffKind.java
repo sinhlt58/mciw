@@ -1,7 +1,7 @@
 package sinhblackgaming.mciw.capabilities;
 
 import net.minecraft.entity.CreatureEntity;
-import sinhblackgaming.mciw.entity.ai.goal.NearestAttackableDiffKindTargetGoal;
+import sinhblackgaming.mciw.entities.ai.goal.NearestAttackableDiffKindTargetGoal;
 
 public class GroupGoalAttackAllDiffKind extends GroupGoalAttack {
     public NearestAttackableDiffKindTargetGoal<CreatureEntity> nearestAllDiffKind = null;
